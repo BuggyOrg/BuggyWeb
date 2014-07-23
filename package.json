@@ -1,0 +1,31 @@
+{
+  "name": "BuggyWeb",
+  "description": "Buggy Web Development framework based on dataflow.js",
+  "version": "0.1.0",
+  "homepage": "http://buggyorg.github.io/Buggy/",
+  "author": "Maximilian Klein",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:BuggyOrg/BuggyWeb.git"
+  },
+  "licenses": [
+    {
+      "type": "GPLv3",
+      "url": "https://github.com/BuggyOrg/BuggyWeb/blob/master/LICENSE"
+    }
+  ],
+  "dependencies": {},
+  "keywords": [],
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.7",
+    "grunt-config-merge": "^1.2.0",
+    "grunt-contrib-concat": "~0.2.0",
+    "grunt-contrib-connect": "~0.3.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-contrib-jshint": "~0.4.3",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-watch": "~0.3.1"
+  }
+}

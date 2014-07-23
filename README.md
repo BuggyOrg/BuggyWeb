@@ -1,4 +1,4 @@
-BuggyWeb
-========
+Buggy Web
+=========
 
-A Web Framework for creating Buggy Programs
+The web based development framework for Buggy.

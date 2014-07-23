@@ -1,0 +1,19 @@
+.logo{
+	position:fixed;
+	bottom:40px;
+	right:20px;
+	font-size:40pt;
+	color:#eee;
+	opacity:0;
+  z-index:200;
+}
+.visible{
+	transition: opacity 10s ease-in-out;
+   -moz-transition: opacity 10s ease-in-out;
+   -webkit-transition: opacity 10s ease-in-out;
+	opacity: 1;
+}
+.versionLogo {
+	font-size:30%;
+	line-height: 8px;
+}

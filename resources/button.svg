@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="46.095" width="151.03" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <g id="all">
+  <g id="node" transform="translate(328.34382,-254.6858)">
+   <rect id="rect3004" stroke-linejoin="round" style="color:#000000;enable-background:accumulate;" stroke-width="2.3" fill-rule="nonzero" stroke-dashoffset="0" ry="21.896" width="148.73" stroke="#000" stroke-linecap="butt" stroke-dasharray="none" x="-327.2" y="255.85" stroke-miterlimit="4" height="43.792" fill="#c7c7c7"/>
+   <text id="textContainer" font-size="12px" line-height="125%" font-family="Open Sans" xml:space="preserve" style="letter-spacing:0px;text-anchor:middle;word-spacing:0px;text-align:center;" font-style="normal" font-stretch="normal" font-variant="normal" y="275.16721" x="-253.16086" font-weight="300" fill="#000000">Name</text>
+  </g>
+  <g id="drag" fill="#3e3e3e" fill-opacity="0.4840183">
+   <path id="path2993" d="M23.06,1.129,18.736,1.4172,15.565,2.8584,9.512,6.7497,5.0443,11.938,3.1707,15.253s-0.86473,6.4855-1.153,7.6385c-0.28824,1.153,1.4412,8.9356,1.4412,8.9356l4.3237,5.7649,5.4766,4.3237,7.6385,3.1707,1.8736-0.14412z"/>
+   <path id="path2993-3" d="m127.99,1.129,4.3237,0.28824,3.1707,1.4412,6.0531,3.8913,4.4678,5.1884,1.8736,3.3148s0.86473,6.4855,1.153,7.6385c0.28824,1.153-1.4412,8.9356-1.4412,8.9356l-4.3237,5.7649-5.4766,4.3237-7.6385,3.1707-1.8736-0.14412z"/>
+  </g>
+ </g>
+ <metadata id="metadata3812">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:title/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <text id="text2990" style="letter-spacing:0px;word-spacing:0px;" font-weight="normal" xml:space="preserve" font-size="20px" font-style="normal" y="-57.388515" x="-185.99065" font-family="Sans" line-height="125%" fill="#000000"><tspan id="tspan2992"/></text>
+</svg>
