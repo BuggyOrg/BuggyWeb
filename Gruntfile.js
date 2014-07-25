@@ -131,17 +131,23 @@
     require('grunt-config-merge')(grunt);
 
     if(grunt.file.exists("./.buggy-library-location")){
-      var libLocation = grunt.file.read("./.buggy-library-location").split("\n")[0];
+      var path = require("path");
+      var what = grunt.file.read("./.buggy-library-location").split("\n");
+      if(what[what.length - 1] == ""){
+        what = what.slice(0,-1);
+      }
       grunt.config.merge({
         watch: {
           buggyLib: {
-            files: [libLocation],
+            files: what,
             tasks: ['copyBuggy']
           }
         }
-      })
+      });
       grunt.registerTask("copyBuggy", function(){
-        grunt.file.copy(libLocation, "libs/buggy.js");
+        for(var i=0; i<what.length; i++){
+          grunt.file.copy(what[i], "libs/" + path.basename(what[i]));
+        }
       });
       grunt.registerTask("buggy", ["watch:buggyLib"]);
     }

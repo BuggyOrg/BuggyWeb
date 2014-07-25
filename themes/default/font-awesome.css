@@ -413,6 +413,12 @@ a .icon-flip-vertical:before {
 .icon-th-list:before {
   content: "\f00b";
 }
+.icon-cube:before {
+  content: "\f1b2";
+}
+.icon-cubes:before {
+  content: "\f1b3";
+}
 .icon-ok:before {
   content: "\f00c";
 }

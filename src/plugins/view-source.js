@@ -6,7 +6,7 @@
   Source.updateAllowed = true;
 
   Source.initialize = function(dataflow){
-    var $form = $( 
+    var $form = $(
       '<form class="dataflow-plugin-view-source">'+
         '<div style="">'+
           '<textarea class="code" style="width:99%; height:400px;; margin:0; padding: 0;"></textarea><br/>'+
@@ -17,10 +17,10 @@
     var $code = $form.find(".code");
 
     dataflow.addPlugin({
-      id: "source", 
+      id: "source",
       label: "view source",
-      name: "", 
-      menu: $form, 
+      name: "",
+      menu: $form,
       icon: "code",
       pinned: true
     });
@@ -33,7 +33,7 @@
 
     var showGraph = function(graph){
       if (dataflow.graph) {
-        Source.show( JSON.stringify(dataflow.graph.toJSON(), null, "  ") );
+        Source.show( JSON.stringify(dataflow.graph.toBuggyGroup(), null, "  ") );
       }
     };
 
@@ -66,10 +66,11 @@
 
     // Apply source to test graph
     $form.submit(function(){
-      Source.updateGraph($code, dataflow);
+      console.warn("Not implemented Yet!!");
+//      Source.updateGraph($code, dataflow);
       return false;
     });
-    
+
   };
 
   // Method for updating the graph from the form. Override

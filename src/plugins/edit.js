@@ -200,56 +200,6 @@
       contexts: ["edges"]
     });
 
-    dataflow.plugin('search').addCommand({
-      names: ['remove', 'r', 'remove node'],
-      args: ['node'],
-      preview: function (text, callback) {
-        if (!dataflow.currentGraph) {
-          return;
-        }
-        var results = [];
-        dataflow.currentGraph.nodes.each(function (node) {
-          if (node.get('label').toLowerCase().indexOf(text.toLowerCase()) === -1) {
-            return;
-          }
-          results.push({
-            icon: 'remove',
-            label: node.get('label'),
-            description: node.type,
-            item: node
-          });
-        });
-        callback(results);
-      },
-      execute: function (item) {
-        if (!dataflow.currentGraph) {
-          return;
-        }
-        item.remove();
-      }
-    });
-
-    Edit.onSearch = function (text, callback) {
-      if (!dataflow.currentGraph) {
-        return;
-      }
-      var results = [];
-      dataflow.currentGraph.nodes.each(function (node) {
-        if (node.get('label').toLowerCase().indexOf(text.toLowerCase()) === -1) {
-          return;
-        }
-        results.push({
-          source: 'edit',
-          icon: 'sign-blank',
-          label: node.get('label'),
-          description: node.type,
-          action: function () {
-            node.view.select();
-          }
-        });
-      });
-      callback(results);
-    };
 
   };
 

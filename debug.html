@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>debug: Dataflow graph editor</title>
+  <title>BuggyWeb (debug)</title>
   <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 
   <!-- Third-Party Libraries -->
@@ -13,7 +13,7 @@
   <script src="libs/underscore.js"></script>
   <script src="libs/backbone.js"></script>
   <script src="libs/hammer.min.js"></script>
-  <script src="libs/semantic.min.js"></script>
+  <script src="libs/semantic.js"></script>
 
   <!-- Built-in Libraries -->
   <script src="libs/CircularBuffer.js"></script>
@@ -55,7 +55,6 @@
   <!-- Plugins -->
   <script src="src/plugins/menu.js"></script>
   <script src="src/plugins/edit.js"></script>
-  <script src="src/plugins/library.js"></script>
   <script src="src/plugins/view-source.js"></script>
   <script src="src/plugins/log.js"></script>
   <script src="src/plugins/inspector.js"></script>
@@ -64,13 +63,21 @@
   <script src="src/plugins/search.js"></script>
 
   <!-- ################ Buggy Stuff ################# -->
+  <script src="libs/prelude-browser-min.js"></script>
+  <script data-main="libs/buggy.js" src="libs/require.js"></script>
+  <!-- Semantic loading isn't nice yet. This file (should) contain(s) all
+      semantic data packed in buggy. -->
+  <script src="libs/semantics.js"></script>
+  <script src="src/buggy-plugins/buggy-wrap.js"></script>
+  <script src="src/nodes/symbol.js"></script>
   <script src="src/buggy-plugins/logo.js"></script>
   <script src="src/buggy-plugins/search.js"></script>
+  <script src="src/buggy-plugins/interfaces.js"></script>
+  <script src="src/buggy-plugins/compose.js"></script>
+
 
   <!-- Usability Features -->
   <script src="src/usability/introduction.js"></script>
-
-  <script data-main="libs/buggy.js" src="libs/require.js"></script>
 
   <!-- Style -->
   <!-- Fonts -->
@@ -85,6 +92,8 @@
   <link rel="stylesheet" href="themes/default/modules/jqui.css">
   <link rel="stylesheet" href="themes/default/modules/search.css">
   <link rel="stylesheet" href="themes/default/modules/logo.css">
+  <link rel="stylesheet" href="themes/default/modules/compose.css">
+  <link rel="stylesheet" href="themes/default/modules/help.css">
   <link rel="stylesheet" href="themes/default/semantic.min.css">
 
 </head>
@@ -92,10 +101,23 @@
 <body >
   <div class="logo"> <table><tr><td>Buggy<div class="versionLogo"><br/>v. <span id="version">0.5.0</span><br/><br/> powered by <a href="https://github.com/meemoo/dataflow" style="color:white">dataflow.js</a></div></td>
     <td><img src="resources/logo.png" width="100" style="position:relative;top:20px" /></td></tr></table></div>
+  <div class="compose">
+    <div id="compose-button" class="ui teal button"><i class="icon play"></i> Compose</div>
+    <div id="compose-info-button" class="ui button disabled icon">
+      <i class="icon info letter"></i>
+    </div>
+  </div>
+  <div class="help">
+    <div id="help-button" class="ui icon blue button">
+      <i class="icon question"></i>
+    </div>
+  </div>
   <div id="graph1" style="position:absolute; overflow:auto; top:0px; right:0px; bottom:0px; left:0px; border: 1px solid black;"></div>
 
   <!-- Testing -->
   <script>
+  var prelude = _require("prelude-ls");
+  installPrelude(window,prelude);
   require(["ls!src/buggy"],function(Buggy){
 
     $(function($){
@@ -109,7 +131,7 @@
 
       // Load test graph
       var g = dataflow.loadGraph(
-        {nodes:[{id:1, label:"test", type:"test", x:461, y:90, w:122, h:248}],edges:[]}
+        {nodes:[],edges:[]}
       );
       g.trigger("change");
 

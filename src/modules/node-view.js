@@ -9,9 +9,9 @@
   var headerTemplate =
     '<h1 class="dataflow-node-title" title="<%- label %>: <%- type %>">'+
     '<% if (icon) { %><i class="icon-<%- icon %>"></i> <% } %>'+
-    '<%- label %></h1>';
+    '<%- label %> </h1>';
 
-  var template = 
+  var template =
     '<div class="outer" />'+
     '<div class="dataflow-node-header">'+
       headerTemplate +
@@ -26,7 +26,7 @@
   var innerTemplate = "";
 
   var zoom;
- 
+
   Node.View = Backbone.View.extend({
     template: _.template(template),
     innerTemplate: _.template(innerTemplate),
@@ -42,7 +42,8 @@
     initialize: function(options) {
       var templateData = this.model.toJSON();
       templateData.icon = this.model.getIcon();
-      this.$el.html(this.template(templateData));
+      var res = this.template(templateData);
+      this.$el.html(res);
 
       this.graph = options.graph;
 

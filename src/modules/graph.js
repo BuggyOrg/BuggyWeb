@@ -1,5 +1,5 @@
 (function(Dataflow) {
- 
+
   var Graph = Dataflow.prototype.module("graph");
 
   // Dependencies
@@ -19,7 +19,7 @@
 
       var i;
 
-      // Set up nodes 
+      // Set up nodes
       var nodes = this.nodes = new Node.Collection();
       nodes.parentGraph = this;
       // Node events
@@ -107,6 +107,28 @@
       while(this.nodes.length > 0){
         this.nodes.remove(this.nodes.at(this.nodes.length-1));
       }
+    },
+    toBuggyGroup: function(){
+      return {
+        generics: this.get("nodes").map(function(n){
+          return {
+            name: n.get("label"),
+            id: n.id,
+          }
+        }),
+        connections: this.get("edges").map(function(e){
+          return {
+            from: {
+              generic: e.source.get("parentNode").id,
+              connector: e.source.get("id")
+            },
+            to: {
+              generic: e.target.get("parentNode").id,
+              connector: e.target.get("id")
+            }
+          }
+        })
+      };
     },
     toJSON: function(){
       return {

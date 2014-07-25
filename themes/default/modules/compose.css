@@ -1,0 +1,6 @@
+.compose {
+  position: absolute;
+  right: 30px;top:30px;
+  z-index:2;
+  left: auto;
+}

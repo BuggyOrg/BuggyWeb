@@ -104,6 +104,13 @@
       return this.nodes[name];
     },
     plugins: {},
+    getPlugin: function(name){
+      if (!this.plugins[name]) {
+        console.warn("plugin " + name + " doesn't exist");
+        return null;
+      }
+      return this.plugins[name];
+    },
     plugin: function(name) {
       if (this.plugins[name]) {
         return this.plugins[name];
