@@ -65,8 +65,8 @@
         _.each(keys(s2), function(k){
           if(fullSemantics[k] instanceof Array){
             $.merge(fullSemantics[k],s2[k]);
-          }else{
-            fullSemantics[k] = s2[k];
+          }else if(! (k in fullSemantics) ){
+            fullSemantics[k] = $.merge([],s2[k]);
           }
         })
         return fullSemantics;
@@ -74,16 +74,20 @@
 
       BuggyPlugin.fullSemantics = function(main_implementation){
         var semantics = values(buggyState.get("semantics"));
-        var fullSemantics = fold(function(acc, sem){
-          return mergeSemantics(acc, sem);
-        }, {}, semantics);
+        var fullSemantics = _.reduce(semantics, function(acc, sem){
+          var mgd = mergeSemantics(acc, sem);
+          return mgd;
+        }, {});
+        console.log(fullSemantics);
         main_implementation.name = "main";
         // all + main semantics !
-        return mergeSemantics(fullSemantics,{
+        var s = mergeSemantics(fullSemantics,{
           implementations:[
             main_implementation
           ]
         });
+        console.log(semantics);
+        return s;
       }
 
       BuggyPlugin.addSemantics("base", baseSemantics)

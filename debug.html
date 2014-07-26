@@ -14,6 +14,7 @@
   <script src="libs/backbone.js"></script>
   <script src="libs/hammer.min.js"></script>
   <script src="libs/semantic.js"></script>
+  <script src="libs/highlight.pack.js"></script>
 
   <!-- Built-in Libraries -->
   <script src="libs/CircularBuffer.js"></script>
@@ -95,6 +96,7 @@
   <link rel="stylesheet" href="themes/default/modules/compose.css">
   <link rel="stylesheet" href="themes/default/modules/help.css">
   <link rel="stylesheet" href="themes/default/semantic.min.css">
+  <link rel="stylesheet" href="themes/default/magula.css">
 
 </head>
 
@@ -112,12 +114,50 @@
       <i class="icon question"></i>
     </div>
   </div>
+  <div class="ui page dimmer">
+    <div class="content" style="width:80%">
+      <div class="center" style="width:30%">
+        <h2 class="ui inverted icon header"><span id="compose-info"><i class="icon circular inverted emphasized info letter blue"></i>Information on Composition</span>
+          <div class="sub header">
+            Click gray area to close this view
+          </div>
+        </h2>
+      </div>
+      <div class="ui left aligned inverted segment green" style="height:100%;">
+        <div class="ui accordion fluid">
+          <div class="title">
+            <i class="icon code"></i> Generated Source Code
+          </div>
+          <div class="content">
+            <span class="newTitle" style="display:none;" data-iconclass="icon circular inverted emphasized code blue">Composed Code</span>
+            <div style="max-height:80vh;overflow:auto;display:block;">
+              <pre>
+                <code class="compose-code"></code>
+              </pre>
+            </div>
+          </div>
+          <div class="title">
+            <i class="icon sitemap"></i>Dependency Graph
+          </div>
+          <div class="content">
+            <span class="newTitle" style="display:none;" data-iconclass="icon circular inverted emphasized sitemap blue">Dependency Graph</span>
+            <div style="max-height:80vh;overflow:auto;display:block">
+              Bla
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
   <div id="graph1" style="position:absolute; overflow:auto; top:0px; right:0px; bottom:0px; left:0px; border: 1px solid black;"></div>
 
   <!-- Testing -->
   <script>
   var prelude = _require("prelude-ls");
   installPrelude(window,prelude);
+  hljs.configure({classPrefix: ''});
+  hljs.initHighlightingOnLoad();
   require(["ls!src/buggy"],function(Buggy){
 
     $(function($){
