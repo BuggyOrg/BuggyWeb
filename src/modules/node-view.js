@@ -77,8 +77,14 @@
       this.$el.data("dataflow-node-view", this);
 
       // Inner template
-      var inner = _.template(this.model.extensions[0].html);
-      this.$(".dataflow-node-inner").append(inner(templateData));
+      if(this.model.extensions)
+      {
+        var inner = _.reduce(this.model.extensions,function(last, cur){
+          var tmpl = _.template(cur.html);
+          return last + tmpl(templateData);
+        },"");
+        this.$(".dataflow-node-inner").append(inner);
+      }
 
       // Listener to reset inputs list
       // this.inputs.on("change", function(input){
