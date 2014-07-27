@@ -1,0 +1,83 @@
+extends html-layout
+block append content
+  // Third-Party Libraries
+  script(src='libs/jquery.js')
+  script(src='libs/jquery-ui.js')
+  script(src='libs/jquery.ui.touch-punch.js')
+  script(src='libs/underscore.js')
+  script(src='libs/backbone.js')
+  script(src='libs/hammer.min.js')
+  script(src='libs/semantic.js')
+  script(src='libs/highlight.pack.js')
+  // Built-in Libraries
+  script(src='libs/CircularBuffer.js')
+  // Dataflow core
+  script(src='src/dataflow.js')
+  script(src='src/state.js')
+  // Dataflow Modules
+  script(src='src/modules/graph.js')
+  script(src='src/modules/node.js')
+  script(src='src/modules/input.js')
+  script(src='src/modules/output.js')
+  script(src='src/modules/edge.js')
+  script(src='src/modules/graph-view.js')
+  script(src='src/modules/node-view.js')
+  script(src='src/modules/input-view.js')
+  script(src='src/modules/output-view.js')
+  script(src='src/modules/edge-view.js')
+  // Cards
+  script(src='src/modules/card.js')
+  script(src='src/modules/card-view.js')
+  script(src='src/modules/menucard.js')
+  script(src='src/modules/menucard-view.js')
+  script(src='src/modules/node-inspect-view.js')
+  script(src='src/modules/edge-inspect-view.js')
+  // Nodes (some basics to extend)
+  script(src='src/nodes/base.js')
+  script(src='src/nodes/base-resizable.js')
+  script(src='src/nodes/test.js')
+  // Nodes (subgraph functionality)
+  script(src='src/nodes/dataflow-input.js')
+  script(src='src/nodes/dataflow-output.js')
+  script(src='src/nodes/dataflow-subgraph.js')
+  // Plugins
+  script(src='src/plugins/menu.js')
+  script(src='src/plugins/edit.js')
+  script(src='src/plugins/view-source.js')
+  script(src='src/plugins/log.js')
+  script(src='src/plugins/inspector.js')
+  script(src='src/plugins/keybinding.js')
+  script(src='src/plugins/notification.js')
+  script(src='src/plugins/search.js')
+  // ################ Buggy Stuff #################
+  script(src='libs/prelude-browser-min.js')
+  script(data-main='libs/buggy.js', src='libs/require.js')
+  //
+    Semantic loading isnt nice yet. This file (should) contain(s) all
+    semantic data packed in buggy.
+  script(src='libs/semantics.js')
+  script(src='src/buggy-plugins/buggy-wrap.js')
+  script(src='src/nodes/symbol.js')
+  script(src='src/buggy-plugins/logo.js')
+  script(src='src/buggy-plugins/search.js')
+  script(src='src/buggy-plugins/interfaces.js')
+  script(src='src/buggy-plugins/compose.js')
+  // Usability Features
+  script(src='src/usability/introduction.js')
+  // Style
+  // Fonts
+  link(rel='stylesheet', href='themes/default/font-proximanova.css')
+  link(rel='stylesheet', href='themes/default/font-awesome.css')
+  // Theme
+  link(rel='stylesheet', href='themes/default/dataflow.css')
+  link(rel='stylesheet', href='themes/default/modules/node.css')
+  link(rel='stylesheet', href='themes/default/modules/edge.css')
+  link(rel='stylesheet', href='themes/default/modules/port.css')
+  link(rel='stylesheet', href='themes/default/modules/card.css')
+  link(rel='stylesheet', href='themes/default/modules/jqui.css')
+  link(rel='stylesheet', href='themes/default/modules/search.css')
+  link(rel='stylesheet', href='themes/default/modules/logo.css')
+  link(rel='stylesheet', href='themes/default/modules/compose.css')
+  link(rel='stylesheet', href='themes/default/modules/help.css')
+  link(rel='stylesheet', href='themes/default/semantic.min.css')
+  link(rel='stylesheet', href='themes/default/magula.css')

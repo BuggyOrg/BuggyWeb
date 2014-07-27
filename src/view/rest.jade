@@ -1,0 +1,61 @@
+extends html-layout
+block append content
+  .compose
+    #compose-button.ui.teal.button
+      i.icon.play
+      |  Compose
+    #compose-info-button.ui.button.disabled.icon
+      i.icon.info.letter
+  .help
+    #help-button.ui.icon.blue.button
+      i.icon.question
+  .ui.page.dimmer
+    .content(style='width:80%')
+      .center(style='width:30%')
+        h2.ui.inverted.icon.header
+          span#compose-info
+            i.icon.circular.inverted.emphasized.info.letter.blue
+            | Information on Composition
+          .sub.header
+            | Click gray area to close this view
+      .ui.left.aligned.inverted.segment.green(style='height:100%;')
+        .ui.accordion.fluid
+          .title
+            i.icon.code
+            |  Generated Source Code
+          .content
+            span.newTitle(style='display:none;', data-iconclass='icon circular inverted emphasized code blue') Composed Code
+            div(style='max-height:80vh;overflow:auto;display:block;')
+              pre
+                code.compose-code
+
+          .title
+            i.icon.sitemap
+            | Dependency Graph
+          .content
+            span.newTitle(style='display:none;', data-iconclass='icon circular inverted emphasized sitemap blue') Dependency Graph
+            div(style='max-height:80vh;overflow:auto;display:block')
+              | Bla
+  #graph1(style='position:absolute; overflow:auto; top:0px; right:0px; bottom:0px; left:0px; border: 1px solid black;')
+  // Testing
+  script.
+    var prelude = _require("prelude-ls");
+    installPrelude(window,prelude);
+    hljs.configure({classPrefix: ''});
+    hljs.initHighlightingOnLoad();
+    require(["ls!src/buggy"],function(Buggy){
+    $(function($){
+    // Everything should be loaded now
+    // Test 2 graphs
+    var dataflow = new window.Dataflow({
+    appendTo: "#graph1",
+    buggy: Buggy.create()
+    });
+    // Load test graph
+    var g = dataflow.loadGraph(
+    {nodes:[],edges:[]}
+    );
+    g.trigger("change");
+    window.d = $(".dataflow").data("dataflow");
+    });
+    });
