@@ -89,6 +89,10 @@
           options: {
             nospawn: true
           }
+        },
+        jade: {
+          files: ["buggyweb.jade", "src/*.jade", "src/**/*.jade"],
+          tasks: ["jade:buggyweb"]
         }
       },
       cssmin: {
@@ -114,7 +118,7 @@
       },
       jade: {
         buggyweb: {
-          files: {"buggyweb.html": "buggyweb.jade"}
+          files: {"buggyweb.html": ["buggyweb.jade"]}
         }
       }
     });

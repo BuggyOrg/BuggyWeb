@@ -1,4 +1,9 @@
-include ./src/view/html-layout.jade
-include ./src/view/logo.jade
-include ./src/view/scripts.jade
-include ./src/view/rest.jade
+extends ./src/layout/html-layout.jade
+block append head
+  include ./src/view/stylesheets.jade
+block append menu
+  include ./src/view/menu.jade
+block append body
+  include ./src/view/content.jade
+  include ./src/templates/templates.jade
+  include ./src/view/scripts.jade

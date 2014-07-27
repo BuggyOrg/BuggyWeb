@@ -61,7 +61,7 @@
       {
         "name" : "Input",
         "type" : "BuggyWeb.NodeExtension",
-        "html" : "<div class=\"ui action input\"><input type=\"text\" placeholder=\"Input Value\" id=\"input_<%= id %>\" style=\"padding-bottom:1em;padding-top:1em\"/><div class=\"ui button blue\" id=\"<%= id %>\">Send</div></div><div>&nbsp;</div>"
+        "html" : JadeTemplate("InputControl")
       }
     ]
   };

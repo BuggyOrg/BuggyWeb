@@ -1,0 +1,27 @@
+.ui.page.dimmer
+  .content(style='width:80%')
+    .center(style='width:30%')
+      h2.ui.inverted.icon.header
+        span#compose-info
+          i.icon.circular.inverted.emphasized.info.letter.blue
+          | Information on Composition
+        .sub.header
+          | Click gray area to close this view
+    .ui.left.aligned.inverted.segment.green(style='height:100%;')
+      .ui.accordion.fluid
+        .title
+          i.icon.code
+          |  Generated Source Code
+        .content
+          span.newTitle(style='display:none;', data-iconclass='icon circular inverted emphasized code blue') Composed Code
+          div(style='max-height:80vh;overflow:auto;display:block;')
+            pre
+              code.compose-code
+
+        .title
+          i.icon.sitemap
+          | Dependency Graph
+        .content
+          span.newTitle(style='display:none;', data-iconclass='icon circular inverted emphasized sitemap blue') Dependency Graph
+          div(style='max-height:80vh;overflow:auto;display:block')
+            | Bla

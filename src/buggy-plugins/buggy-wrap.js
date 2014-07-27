@@ -21,7 +21,6 @@
   var BuggyPlugin = Dataflow.prototype.plugin("buggy");
 
   BuggyPlugin.initialize = function(){
-
   }
 
   require(["ls!src/buggy", "ls!src/semantics"],
@@ -98,7 +97,7 @@
         return s;
       }
 
-      BuggyPlugin.addSemantics("base", baseSemantics)
+      BuggyPlugin.addSemantics("base", baseSemantics);
 
   });
 
