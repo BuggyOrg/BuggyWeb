@@ -4,7 +4,7 @@
   var Symbol = Dataflow.prototype.node("symbol");
 
   Search.initialize = function(dataflow){
-    var addNode = function(node, symbol, x, y) {
+    var addNode = function(node, symbol, extensions, x, y) {
       return function(){
         // Deselect others
         dataflow.currentGraph.view.$(".dataflow-node").removeClass("ui-selected");
@@ -29,7 +29,8 @@
           x: x,
           y: y,
           parentGraph: dataflow.currentGraph,
-          symbol: symbol
+          symbol: symbol,
+          extensions: extensions
         });
         dataflow.currentGraph.nodes.add(newNode);
         // Select and bring to top
@@ -49,8 +50,8 @@
           label: item.name,
           description: item.description,
           action: function () {
-            console.log(item.name + " selected");
-            addNode(Symbol, item).call();
+            var metas = BuggyPlugin.searchMeta(item.name, "BuggyWeb.NodeExtension");
+            addNode(Symbol, item, metas).call();
           }
         }});
       //results = Semantics.query(baseSemantics,text,{searchQuery:true},"modules");

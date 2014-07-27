@@ -22,6 +22,7 @@
         }
       }));
       this.set("label", sym.name);
+      this.extensions = options.extensions;
       BaseResizable.Model.prototype.initialize.call(this);
     },
     defaults: function(){
@@ -38,5 +39,7 @@
       BaseResizable.View.prototype.initialize.call(this, options);
     }
   });
+
+
 
 }(Dataflow) );

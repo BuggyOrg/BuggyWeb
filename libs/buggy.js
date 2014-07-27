@@ -838,6 +838,63 @@ define('ls', {load:function(){}});
 }).call(this);
 
 
+/* This file is part of Buggy.
+
+ Buggy is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ Buggy is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with Buggy.  If not, see <http://www.gnu.org/licenses/>.
+ */
+(function(){
+  var toString$ = {}.toString;
+  define('ls!src/semantics/predicates/meta',[],function(){
+    var Predicates;
+    return Predicates = [{
+      name: "name filter",
+      type: "filter",
+      description: "filters all elements that don't match the given name",
+      process: function(value, query, options){
+        if (toString$.call(query).slice(8, -1) === "String") {
+          query = JSON.parse(query);
+        }
+        return value.type === query.type && value.name === query.name;
+      }
+    }];
+  });
+}).call(this);
+
+
+/* This file is part of Buggy.
+
+ Buggy is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ Buggy is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with Buggy.  If not, see <http://www.gnu.org/licenses/>.
+ */
+(function(){
+  define('ls!src/semantics/meta',["ls!src/semantics/predicates/meta", "ls!src/semantics/semantic-field"], function(Predicates, Field){
+    var Meta;
+    return Meta = Field("meta", [], Predicates);
+  });
+}).call(this);
+
+
 /*
   This file is part of Buggy.
 
@@ -856,7 +913,7 @@ define('ls', {load:function(){}});
 */
 (function(){
   var toString$ = {}.toString;
-  define('ls!src/semantics',["ls!src/semantics/sources", "ls!src/semantics/symbols", "ls!src/semantics/implementation", "ls!src/semantics/construction", "ls!src/semantics/modules", "ls!src/semantics/loading"], function(Sources, Symbols, Impl, Construction, Modules, Loading){
+  define('ls!src/semantics',["ls!src/semantics/sources", "ls!src/semantics/symbols", "ls!src/semantics/implementation", "ls!src/semantics/construction", "ls!src/semantics/modules", "ls!src/semantics/meta", "ls!src/semantics/loading"], function(Sources, Symbols, Impl, Construction, Modules, Meta, Loading){
     var Semantics;
     return Semantics = {
       createSemantics: function(){
@@ -864,6 +921,7 @@ define('ls', {load:function(){}});
           sources: [],
           symbols: [],
           modules: [],
+          meta: [],
           implementations: [],
           construction: []
         };
@@ -882,6 +940,7 @@ define('ls', {load:function(){}});
           Impl.addFromJson(s, json);
           Construction.addFromJson(s, json);
           Modules.addFromJson(s, json);
+          Meta.addFromJson(s, json);
           return Sources.addFromJson(s, json);
         };
         return Loading.loadFileRecursively(files, s, loadFile, semanticsLoaded);
@@ -897,6 +956,8 @@ define('ls', {load:function(){}});
           return Construction.query(semantics, what, options);
         case "modules":
           return Modules.query(semantics, what, options);
+        case "meta":
+          return Meta.query(semantics, what, options);
         default:
           throw Error('unimplemented');
         }
@@ -1189,7 +1250,6 @@ define('ls', {load:function(){}});
         return depGraph;
       },
       mangle: function(depGraph){
-        console.log(depGraph);
         fold(function(id, n){
           n.mangle = id;
           return id + 1;

@@ -59,6 +59,14 @@
         }
       }
 
+      BuggyPlugin.searchMeta = function(name, type){
+        var semantics = buggyState.get("semantics");
+        var resultMeta = _.map(semantics, function(val){
+          return Semantics.query(val,{type:type,name:name},{},"meta");
+        });
+        return flatten(resultMeta);
+      }
+
       var mergeSemantics = function(s1,s2){
         var fullSemantics = s1;
         var s_keys = unique(union(keys(s1), keys(s2)));
