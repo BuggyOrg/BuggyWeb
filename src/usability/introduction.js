@@ -30,12 +30,8 @@
         content: "Create your programs here!"
       });
 
-      /*var fields = ["#searchfield", "#settings", "#compose-button"];
-      queueCalls(fields, 500, function(o){
-        $(o).popup("toggle");
-      })*/
       popups.push(addPermanentPopup("#searchfield"));
-      popups.push(addPermanentPopup("#settings"));
+      //popups.push(addPermanentPopup("#settings"));
       popups.push(addPermanentPopup("#compose-button"));
     },function(){
       $(".removeOnUnhover").removeClass("animating");

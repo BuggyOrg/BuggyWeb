@@ -4,11 +4,8 @@
 
   // Dependencies
   var Edge = Dataflow.prototype.module("edge");
- 
-  var template = 
-    '<span class="dataflow-port-label out" title="<%= description %>"><%= label %></span>'+
-    '<span class="dataflow-port-hole out" title="drag to make new wire"></span>'+
-    '<span class="dataflow-port-plug out" title="drag to edit wire"></span>';
+
+  var template = JadeTemplate("OutputView");
 
   var zoom = 1;
 
@@ -333,6 +330,6 @@
   Output.CollectionView = Backbone.CollectionView.extend({
     tagName: "ul",
     itemView: Output.View
-  }); 
+  });
 
 }(Dataflow) );

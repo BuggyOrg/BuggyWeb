@@ -2,15 +2,7 @@
 
   var Node = Dataflow.prototype.module("node");
 
-  var template = 
-    '<div class="dataflow-plugin-inspector-title">'+
-      '<h1 class="dataflow-node-inspector-label" title="click to edit"><%- label %></h1>'+
-      '<h2 class="dataflow-node-inspector-type"><%- type %></h2>'+
-    '</div>'+
-    // '<div class="dataflow-node-inspector-controls">'+
-    //   '<button class="dataflow-node-delete">delete</button>'+
-    // '</div>'+
-    '<div class="dataflow-node-inspector-inputs"></div>';
+  var template = JadeTemplate("NodeInspectView");
 
   var makeEditable = function ($el, model, attribute) {
     $el[0].contentEditable = true;

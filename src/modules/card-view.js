@@ -2,11 +2,11 @@
 
   var Card = Dataflow.prototype.module("card");
 
-  var template = 
+  var template = JadeTemplate("CardView"); /*
     '<div class="dataflow-card-control">'+
       '<button title="pin" class="dataflow-card-pin icon-pushpin"></button>'+
       '<button title="close" class="dataflow-card-close icon-remove"></button>'+
-    '</div>';
+    '</div>'; // */
 
   Card.View = Backbone.View.extend({
     tagName: "div",

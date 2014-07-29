@@ -5,15 +5,10 @@
   // Dependencies
   var Edge = Dataflow.prototype.module("edge");
 
-  var template = 
-    '<span class="dataflow-port-plug in" title="drag to edit wire"></span>'+ //i18n
-    '<span class="dataflow-port-hole in" title="drag to make new wire"></span>'+ //i18n
-    '<label class="dataflow-port-label in" title="<%= description %>">'+
-      '<%= label %>'+
-    '</label>';  
+  var template = JadeTemplate("InputView");
 
   var zoom = 1;
- 
+
   Input.View = Backbone.View.extend({
     template: _.template(template),
     tagName: "li",
@@ -158,7 +153,7 @@
         input.change(this.inputSelect.bind(this));
         return input;
       }
-      
+
       switch (type) {
         case 'int':
         case 'float':
@@ -255,7 +250,7 @@
       if (!ui) { return; }
       // Don't drag node
       event.stopPropagation();
-      
+
       ui.helper.data({
         route: this.topRoute
       });
@@ -356,7 +351,7 @@
           });
           var graphSVGElement = this.model.parentNode.parentGraph.view.$('.dataflow-svg-edges')[0];
           graphSVGElement.appendChild(this.previewEdgeChangeView.el);
-          
+
           zoom = this.model.parentNode.parentGraph.get('zoom');
         }
       }
@@ -365,7 +360,7 @@
       if (!ui) { return; }
       // Don't drag node
       event.stopPropagation();
-      
+
       if (this.previewEdgeChange) {
         this.previewEdgeChangeView.render(ui.offset);
         this.model.parentNode.parentGraph.view.sizeSVG();
@@ -508,6 +503,6 @@
   Input.CollectionView = Backbone.CollectionView.extend({
     tagName: "ul",
     itemView: Input.View
-  }); 
+  });
 
 }(Dataflow) );

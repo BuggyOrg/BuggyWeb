@@ -6,22 +6,7 @@
   var Input = Dataflow.prototype.module("input");
   var Output = Dataflow.prototype.module("output");
 
-  var headerTemplate =
-    '<h1 class="dataflow-node-title" title="<%- label %>: <%- type %>">'+
-    '<% if (icon) { %><i class="icon-<%- icon %>"></i> <% } %>'+
-    '<%- label %> </h1>';
-
-  var template =
-    '<div class="outer" />'+
-    '<div class="dataflow-node-header">'+
-      headerTemplate +
-    '</div>'+
-    '<div class="dataflow-node-ports">'+
-      '<div class="dataflow-node-ins"></div>'+
-      '<div class="dataflow-node-outs"></div>'+
-      '<div style="clear:both;"></div>'+
-    '</div>'+
-    '<div class="dataflow-node-inner"></div>';
+  var template = JadeTemplate("NodeView");
 
   var innerTemplate = "";
 

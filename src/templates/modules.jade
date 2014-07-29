@@ -1,0 +1,56 @@
+#Jade-Templates-CardView
+  .dataflow-card-control
+    button.dataflow-card-pin.icon-pushpin(title='pin')
+    button.dataflow-card-close.icon-remove(title='close')
+
+#Jade-Templates-GraphView
+  .dataflow-graph-panzoom
+    .dataflow-graph.zoom-normal
+      .dataflow-edges
+        svg.dataflow-svg-edges(xmlns:xlink='http://www.w3.org/1999/xlink', xmlns='http://www.w3.org/2000/svg', width='800', height='800')
+      .dataflow-nodes
+    .dataflow-graph-controls
+      button.dataflow-graph-gotoparent
+        i.icon-chevron-left
+        |  back to parent
+
+#Jade-Templates-EdgeInspectView
+  .dataflow-plugin-inspector-title
+    h1 Edge
+    h2.dataflow-edge-inspector-id
+  .dataflow-edge-inspector-route-choose
+  ul.dataflow-edge-inspector-events
+
+
+#Jade-Templates-InputView
+  span.dataflow-port-plug.in(title='drag to edit wire')
+  span.dataflow-port-hole.in(title='drag to make new wire')
+  label.dataflow-port-label.in(title='<%= description %>')
+    | <%= label %>
+
+#Jade-Templates-OutputView
+  label.dataflow-port-label.out(title='<%= description %>')
+    | <%= label %>
+  span.dataflow-port-hole.out(title='drag to make new wire')
+  span.dataflow-port-plug.out(title='drag to edit wire')
+
+#Jade-Templates-NodeInspectView
+  .dataflow-plugin-inspector-title
+    h1.dataflow-node-inspector-label(title='click to edit')
+      | <%- label %>
+    h2.dataflow-node-inspector-type
+      | <%- type %>
+  .dataflow-node-inspector-inputs
+
+
+#Jade-Templates-NodeView
+  .outer
+  .dataflow-node-header
+    h1.dataflow-node-title(title='<%- label %>: <%- type %>')
+      | <% if (icon) { %><i class="icon-<%- icon %>"></i> <% } %>
+      | <%- label %>
+  .dataflow-node-ports
+    .dataflow-node-ins
+    .dataflow-node-outs
+    div(style='clear:both;')
+  .dataflow-node-inner
