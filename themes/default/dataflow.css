@@ -4,6 +4,7 @@
 
 body{
   font-family: "proxima-nova-regular", "Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-rendering: optimizeLegibility;
 }
 
 .dataflow {

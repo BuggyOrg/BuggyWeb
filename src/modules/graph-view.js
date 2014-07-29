@@ -11,7 +11,7 @@
 
   var cssZoomSupported = document.createElement("div").style.hasOwnProperty("zoom");
 
-  var template = 
+  var template = JadeTemplate("GraphView");/*
     '<div class="dataflow-graph-panzoom">'+
       '<div class="dataflow-graph zoom-normal">'+
         '<div class="dataflow-edges">'+
@@ -22,7 +22,7 @@
     '</div>'+
     '<div class="dataflow-graph-controls">'+
       '<button class="dataflow-graph-gotoparent"><i class="icon-chevron-left"></i> back to parent</button>'+
-    '</div>';
+    '</div>';// */
 
   Graph.View = Backbone.View.extend({
     template: _.template(template),
@@ -213,7 +213,7 @@
     zoomIn: function () {
       var currentZoom = this.model.get('zoom');
       var zoom = currentZoom * 0.9;
-      zoom = Math.max(minZoom, zoom); 
+      zoom = Math.max(minZoom, zoom);
       if (zoom !== currentZoom) {
         this.model.set('zoom', zoom);
       }
@@ -221,7 +221,7 @@
     zoomOut: function () {
       var currentZoom = this.model.get('zoom');
       var zoom = currentZoom * 1.1;
-      zoom = Math.min(maxZoom, zoom); 
+      zoom = Math.min(maxZoom, zoom);
       if (zoom !== currentZoom) {
         this.model.set('zoom', zoom);
       }

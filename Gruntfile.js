@@ -89,6 +89,10 @@
           options: {
             nospawn: true
           }
+        },
+        jade: {
+          files: ["buggyweb.jade", "src/*.jade", "src/**/*.jade"],
+          tasks: ["jade:buggyweb"]
         }
       },
       cssmin: {
@@ -111,6 +115,11 @@
             ]
           }
         }
+      },
+      jade: {
+        buggyweb: {
+          files: {"buggyweb.html": ["buggyweb.jade"]}
+        }
       }
     });
 
@@ -120,6 +129,7 @@
     this.loadNpmTasks('grunt-contrib-connect');
     this.loadNpmTasks('grunt-contrib-watch');
     this.loadNpmTasks('grunt-contrib-cssmin');
+    this.loadNpmTasks('grunt-contrib-jade')
 
     this.registerTask('dev', ['connect', 'watch']);
     this.registerTask('build', ['concat:dist', 'uglify:dist', 'cssmin:dist']);

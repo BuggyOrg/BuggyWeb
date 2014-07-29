@@ -2,13 +2,13 @@
 
   var Edge = Dataflow.prototype.module("edge");
 
-  var template = 
+  var template =  JadeTemplate("EdgeInspectView"); /*
     '<div class="dataflow-plugin-inspector-title">'+
       '<h1>Edge</h1>'+
       '<h2 class="dataflow-edge-inspector-id"><%= id %></h2>'+
     '</div>'+
     '<div class="dataflow-edge-inspector-route-choose"></div>'+
-    '<ul class="dataflow-edge-inspector-events"></ul>';
+    '<ul class="dataflow-edge-inspector-events"></ul>'; // */
 
   Edge.InspectView = Backbone.View.extend({
     tagName: "div",
@@ -29,7 +29,7 @@
         var route = $(event.target).data("route");
         this.model.set("route", route);
       }.bind(this);
-      
+
       // Make buttons
       for (var i=0; i<12; i++) {
         var button = $("<button>")

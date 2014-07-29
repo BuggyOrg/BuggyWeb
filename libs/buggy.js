@@ -344,7 +344,18 @@ define('ls', {load:function(){}});
   along with Buggy.  If not, see <http://www.gnu.org/licenses/>.
 */
 (function(){
-  var slice$ = [].slice;
+  var setIdForGroupConnectors, slice$ = [].slice;
+  setIdForGroupConnectors = function(generic, connection){
+    if ("id" in generic) {
+      if (connection.from.generic === generic.name) {
+        connection.from.generic = generic.id;
+      }
+      if (connection.to.generic === generic.name) {
+        connection.to.generic = generic.id;
+      }
+    }
+    return connection;
+  };
   define('ls!src/connection',["ls!src/generic", "ls!src/util/clone"], function(Generic, Clone){
     var connections;
     connections = {
@@ -375,14 +386,17 @@ define('ls', {load:function(){}});
           };
         }
       },
-      gather: function(groupSymbols, groupImplementation){
+      gather: function(groupSymbols, groupImplementation, generic){
         var Connection, connections;
         Connection = this;
         connections = [];
         if (groupImplementation.connections != null) {
           connections = union(connections, Clone(groupImplementation.connections));
         }
-        return connections;
+        return map(function(it){
+          return setIdForGroupConnectors(generic, it);
+        })(
+        connections);
       }
     };
     return connections;
@@ -1035,7 +1049,7 @@ define('ls', {load:function(){}});
   define('ls!src/graph',['ls!src/connection', 'ls!src/generic', 'ls!src/group'], function(Connection, Generic, Group){
     var Graph;
     Graph = {
-      fromGroup: function(grpSym, grpImpl){
+      fromGroup: function(grpSym, grpImpl, generic){
         var graph;
         return graph = {
           nodes: grpImpl.generics == null
@@ -1058,7 +1072,7 @@ define('ls', {load:function(){}});
               parentGroup: Group.identifier(grpImpl)
             };
           })(
-          Connection.gather(grpSym, grpImpl))
+          Connection.gather(grpSym, grpImpl, generic))
         };
       },
       getGroupConnections: function(graph, grp){
@@ -1233,7 +1247,7 @@ define('ls', {load:function(){}});
       if (grp == null) {
         throw new Error("[Dependency Graph] Couldn't resolve the group '" + generic.name + "'");
       }
-      grpGraph = Graph.fromGroup(grp.symbol, grp.implementation);
+      grpGraph = Graph.fromGroup(grp.symbol, grp.implementation, generic);
       subGraphs = map(function(n){
         return generateDependencyGraph(n, semantics, options);
       })(

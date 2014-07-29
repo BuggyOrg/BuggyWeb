@@ -39,10 +39,11 @@
   });
 
   Search.initialize = function (dataflow) {
-    var $search = $('<div class="dataflow-plugin-search"><input type="search" id="searchfield" placeholder="Search" results="5" x-webkit-speech /><button><i class="icon-reorder" id="settings"></i></button></div>');
-    var $input = $search.find('input');
+    var $search = $("");//'<div class="dataflow-plugin-search"><input type="search" id="searchfield" placeholder="Search" results="5" x-webkit-speech /><button><i class="icon-reorder" id="settings"></i></button></div>');
+    var $input = $('#searchfield');
     var $button = $search.find('button');
     dataflow.$el.prepend($search);
+    console.log($input);
 
     $input.on('keydown', function (event) {
       // Ctrl-s again to get out of the search field

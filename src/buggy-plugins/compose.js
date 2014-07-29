@@ -28,12 +28,6 @@
       $("#compose-info-button").removeClass("disabled");
       $("#compose-info-button").click(function(){
         $(".dimmer").dimmer("show");
-        $(".dimmer").dimmer({
-          onHide: function(){
-            $("body").removeClass("ui");
-            $("body").removeClass("dimmable");
-          }
-        })
       })
     }
 
