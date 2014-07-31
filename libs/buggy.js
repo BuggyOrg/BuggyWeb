@@ -213,9 +213,9 @@ define('ls', {load:function(){}});
           }
         },
         query: function(semantics, what, options){
-          return filter(function(it){
-            return it = fold(function(val, pred){
-              return val && pred.process(it, what, options);
+          return filter(function(elem){
+            return fold(function(val, pred){
+              return val && pred.process(elem, what, options);
             }, true)(
             predicates);
           })(

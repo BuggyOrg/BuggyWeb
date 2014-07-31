@@ -44,6 +44,13 @@
         buggyState.set("semantics", sem);
       }
 
+      BuggyPlugin.findImplementations = function(what){
+        var semantics = buggyState.get("semantics");
+        return _.compact(_.flatten(_.map(semantics, function(val){
+          return Semantics.query(val,what, {language:"javascript"}, "implementations");
+        })));
+      }
+
       BuggyPlugin.searchSemantics = function(search){
         var semantics = buggyState.get("semantics");
         var resultSymbols = _.map(semantics, function(val){

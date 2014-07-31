@@ -44,11 +44,12 @@
 
       //var results = Semantics.query(baseSemantics,text,{searchQuery:true},"symbols");
       var resultSymbols = _.map(results.symbols, function(item){
+        var impls = BuggyPlugin.findImplementations(item.name);
         return {
           source: 'buggy.search',
           icon: 'cube',
           label: item.name,
-          description: item.description,
+          description: item.description + " (" + impls.length + " implementations)",
           action: function () {
             var metas = BuggyPlugin.searchMeta(item.name, "BuggyWeb.NodeExtension");
             addNode(Symbol, item, metas).call();
