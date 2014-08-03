@@ -252,6 +252,8 @@
     },
     showInspector: function(leaveUnpinned){
       this.model.parentGraph.dataflow.addCard( this.getInspector(), leaveUnpinned );
+      var card = this.getInspector().get("card");
+      card.show();
     },
     hideInspector: function () {
       this.model.parentGraph.dataflow.removeCard( this.getInspector() );

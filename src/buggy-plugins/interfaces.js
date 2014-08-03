@@ -23,6 +23,7 @@
   var inout_semantics = {
     "implementations" : [
       {
+        "symbol" : "Input",
         "name" : "Input",
         "module" : true,
         "atomic" : true,
@@ -41,6 +42,7 @@
         "explicit-callback" : true
       },
       {
+        "symbol" : "Output",
         "name" : "Output",
         "module" : true,
         "atomic" : true,

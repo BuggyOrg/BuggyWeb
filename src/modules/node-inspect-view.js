@@ -47,24 +47,38 @@
           $inputs.append( input.view.$input );
         }
       }, this);*/
-
       var theModel = this.model;
 
       makeEditable(this.$(".dataflow-node-inspector-label"), this.model, "label");
-      setTimeout(function(){
-        var menu = $("#inspector_impl_dropdown_" + theModel.id);
-        _.each(theModel.implementations, function(impl){
-          var itemTmpl = _.template(JadeTemplate("NodeInspectView-ImplementationItem"));
-          var implTmp = impl.implementation;
-          if(impl.implementation){
-            impl.implementation = Code.processCode(impl.implementation);
-          }
-          var append = itemTmpl(impl);
-          menu.append(itemTmpl(impl));
-          impl.implementation = implTmp;
-        })
-        $(".ui.dropdown").dropdown();
-      },15);
+    },
+    show: function(){
+      var theModel = this.model;
+      var menu = $("#inspector_impl_menu_" + theModel.id);
+      menu.html("");
+      _.each(theModel.implementations, function(impl, id){
+        var itemTmpl = _.template(JadeTemplate("NodeInspectView-ImplementationItem"));
+        var implTmp = impl.implementation;
+        if(impl.implementation){
+          impl.implementation = Code.processCode(impl.implementation);
+        }
+        impl.listID = id;
+        var append = itemTmpl(impl);
+        menu.append(itemTmpl(impl));
+        if(impl.generics){
+          require(["ls!src/graph"], function(Graph){
+            var generic = {
+              name: impl.symbol, id: impl.symbol
+            };
+            var symbol = theModel.get("symbol");
+            var graph = Graph.fromGroup(symbol,impl,generic);
+            graph = Graph.addNode(graph, symbol.name);
+            drawGraph(graph,"#inspector_impl_svg_" + id, symbol.name);
+            var svg = $("#inspector_impl_svg_" + id).children("svg");
+            svg.attr("class","dagre");
+          });
+        }
+        impl.implementation = implTmp;
+      })
     },
     render: function() {
       return this;

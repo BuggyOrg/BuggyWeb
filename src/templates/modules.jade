@@ -42,15 +42,15 @@
   .dataflow-node-inspector-inputs
     label
       span Implementation
-      div(style="left:20px").ui.dropdown
+      div(style="left:20px",id="inspector_impl_dropdown_<%= id %>").ui.dropdown.simple
         .text <%= implementations[activeImplementation].name %>
         i.icon.dropdown
-        div(id="inspector_impl_dropdown_<%= id %>").menu
+        div(id="inspector_impl_menu_<%= id %>").menu
 
 
 #Jade-Templates-NodeInspectView-ImplementationItem
   | <% if (atomic) { %>
-  | <div class="ui dropdown item fluid">
+  | <div class="ui dropdown simple item fluid">
   |  <div class="text" style="min-width:150px"><i class="icon code">
   |   </i> <%= name %>
   |   <i class="icon dropdown"></i>
@@ -64,7 +64,18 @@
   |  </div>
   | </div> <% } %>
   | <% if (atomic != true) { %>
-  | <div class="item"><%= name %></div> <% } %>
+  | <div class="ui item dropdown simple fluid">
+  |  <div class="text" style="min-width:150px"><i class="icon code"></i><%= name %>
+  |   <i class="icon dropdown"></i>
+  |  </div>
+  |  <div class="menu">
+  |   <div class="text ui segment inverted blue">
+  |    <h2><i class="icon sitemap"></i>Graph-Implementation</h2>
+  |   </div>
+  |   <div class="text ui segment dagre" id="inspector_impl_svg_<%= listID %>">
+  |   </div>
+  |  </div>
+  | </div> <% } %>
 
 #Jade-Templates-CodeTemplate
   div(class="<%= color %>").ui.image.label <%= inner %>
