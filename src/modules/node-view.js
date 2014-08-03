@@ -26,6 +26,7 @@
     },
     initialize: function(options) {
       var templateData = this.model.toJSON();
+      console.log(templateData);
       templateData.icon = this.model.getIcon();
       var res = this.template(templateData);
       this.$el.html(res);
@@ -145,6 +146,7 @@
     changeHeader: function () {
       var templateData = this.model.toJSON();
       templateData.icon = this.model.getIcon();
+      console.log(headerTemplate);
       this.$(".dataflow-node-header")
         .html(_.template(headerTemplate, templateData));
     },

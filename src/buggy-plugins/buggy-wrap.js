@@ -65,6 +65,13 @@
         }
       }
 
+      BuggyPlugin.listConstructions = function(){
+        var semantics = buggyState.get("semantics");
+        return _.compact(_.flatten(_.map(semantics, function(s){
+          return s.construction;
+        })));
+      }
+
       BuggyPlugin.searchMeta = function(name, type){
         var semantics = buggyState.get("semantics");
         var resultMeta = _.map(semantics, function(val){
@@ -93,6 +100,7 @@
           return mgd;
         }, {});
         console.log(fullSemantics);
+        main_implementation.symbol = "main";
         main_implementation.name = "main";
         // all + main semantics !
         var s = mergeSemantics(fullSemantics,{

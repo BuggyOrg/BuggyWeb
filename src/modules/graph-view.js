@@ -76,8 +76,8 @@
 
       // Default 3D transform
       this.$graphEl.css({
-        transform: "translate3d(0, 0, 0) " +
-                   "scale3d(1, 1, 1) ",
+        "-webkit-transform": "translate(0, 0) " +
+                   "scale(1, 1) ",
         transformOrigin: "left top"
       });
 
@@ -94,12 +94,12 @@
       var deltaX = ui.offset.left - this.panStartOffset.left;
       var deltaY = ui.offset.top - this.panStartOffset.top;
       this.$(".dataflow-graph").css({
-        transform: "translate3d("+deltaX/scale+"px, "+deltaY/scale+"px, 0)"
+        "-webkit-transform": "translate("+deltaX/scale+"px, "+deltaY/scale+"px)"
       });
     },
     panStop: function (event, ui) {
       this.$(".dataflow-graph").css({
-        transform: "translate3d(0, 0, 0)"
+        "-webkit-transform": "translate(0, 0)"
       });
       var scale = this.model.get('zoom');
       var deltaX = ui.offset.left - this.panStartOffset.left;
@@ -114,7 +114,7 @@
     setPanDebounce: _.debounce(function () {
       // Moves the graph back to 0,0 and changes pan, which will rerender wires
       this.$(".dataflow-graph").css({
-        transform: "translate3d(0, 0, 0)"
+        "-webkit-transform": "translate(0, 0)"
       });
       this.model.set({
         panX: this.model.get("panX") + this.tempPanX,
@@ -129,7 +129,7 @@
       this.tempPanX += oe.wheelDeltaX/6;
       this.tempPanY += oe.wheelDeltaY/6;
       this.$(".dataflow-graph").css({
-        transform: "translate3d("+this.tempPanX+"px, "+this.tempPanY+"px, 0)"
+        "-webkit-transform": "translate("+this.tempPanX+"px, "+this.tempPanY+"px)"
       });
       this.setPanDebounce();
     },
@@ -169,15 +169,15 @@
           deltaX = (event.gesture.center.pageX - startX) / currentZoom;
           deltaY = (event.gesture.center.pageY - startY) / currentZoom;
           self.$graphEl.css({
-            transform: "translate3d("+deltaX+"px,"+deltaY+"px, 0) " +
-                       "scale3d("+scale+","+scale+", 1) "
+            "-webkit-transform": "translate("+deltaX+"px,"+deltaY+"px) " +
+                       "scale("+scale+","+scale+") "
           });
         })
         .on('transformend', function (event) {
           // Reset 3D transform
           self.$graphEl.css({
-            transform: "translate3d(0, 0, 0) " +
-                       "scale3d(1, 1, 1) "
+            "-webkit-transform": "translate(0, 0) " +
+                       "scale(1, 1) "
           });
           // Zoom
           var zoom = currentZoom * scale;

@@ -23,7 +23,15 @@
       }));
       this.set("label", sym.name);
       this.extensions = options.extensions;
+      this.set("activeImplementation", 0);
+      this.implementations = options.implementations;
       BaseResizable.Model.prototype.initialize.call(this);
+    },
+    toJSON: function(){
+      var json = BaseResizable.Model.prototype.toJSON.call(this);
+      json.activeImplementation = this.get("activeImplementation");
+      json.implementations = this.implementations;
+      return json;
     },
     defaults: function(){
       var defaults = BaseResizable.Model.prototype.defaults.call(this);

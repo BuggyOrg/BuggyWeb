@@ -38,17 +38,44 @@
   .dataflow-plugin-inspector-title
     h1.dataflow-node-inspector-label(title='click to edit')
       | <%- label %>
-    h2.dataflow-node-inspector-type
-      | <%- type %>
+      span(style="color:gray") &nbsp;<<%- type %>>
   .dataflow-node-inspector-inputs
+    label
+      span Implementation
+      div(style="left:20px").ui.dropdown
+        .text <%= implementations[activeImplementation].name %>
+        i.icon.dropdown
+        div(id="inspector_impl_dropdown_<%= id %>").menu
 
+
+#Jade-Templates-NodeInspectView-ImplementationItem
+  | <% if (atomic) { %>
+  | <div class="ui dropdown item fluid">
+  |  <div class="text" style="min-width:150px"><i class="icon code">
+  |   </i> <%= name %>
+  |   <i class="icon dropdown"></i>
+  |  </div>
+  |  <div class="menu">
+  |   <div class="text ui segment inverted green">
+  |    <h2><i class="icon code"></i>Implementation
+  |    <div class="ui blue button">Use</div></h2>
+  |   </div>
+  |   <pre><code><%= implementation %></pre></code>
+  |  </div>
+  | </div> <% } %>
+  | <% if (atomic != true) { %>
+  | <div class="item"><%= name %></div> <% } %>
+
+#Jade-Templates-CodeTemplate
+  div(class="<%= color %>").ui.image.label <%= inner %>
+    i.icon.question
 
 #Jade-Templates-NodeView
   .outer
   .dataflow-node-header
     h1.dataflow-node-title(title='<%- label %>: <%- type %>')
       | <% if (icon) { %><i class="icon-<%- icon %>"></i> <% } %>
-      | <%- label %>
+      | <%- label %> : <%= implementations[activeImplementation].name %>
   .dataflow-node-ports
     .dataflow-node-ins
     .dataflow-node-outs

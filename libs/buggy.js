@@ -294,7 +294,7 @@ define('ls', {load:function(){}});
       description: "filters all elements that don't match the given name",
       process: function(value, query, options){
         if (options.searchQuery) {
-          return value.name.indexOf(query) !== -1;
+          return value.name.toLowerCase().indexOf(query) !== -1;
         } else {
           return value.name === query;
         }
@@ -612,7 +612,7 @@ define('ls', {load:function(){}});
         name: "name filter",
         description: "filters all elements that don't match the given name",
         process: function(value, query, options){
-          return value.name === query;
+          return value.symbol === query;
         }
       }, {
         name: "atomic implementation",
@@ -819,7 +819,7 @@ define('ls', {load:function(){}});
       description: "filters all elements that don't match the given module",
       process: function(value, query, options){
         if (options.searchQuery) {
-          return value.matches.indexOf(query) !== -1;
+          return value.matches.toLowerCase().indexOf(query) !== -1;
         } else {
           return value.matches === query;
         }

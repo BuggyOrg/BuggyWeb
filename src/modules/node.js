@@ -5,7 +5,7 @@
 ( function(Dataflow) {
 
   var Node = Dataflow.prototype.module("node");
- 
+
   // Dependencies
   var Input = Dataflow.prototype.module("input");
   var Output = Dataflow.prototype.module("output");
@@ -72,6 +72,7 @@
         output = new Output.Model(output);
         this.outputs.add(output);
       }
+      this.activeImplementation = 0;
 
       // Selection event
       this.on("change:selected", this.changeSelected, this);

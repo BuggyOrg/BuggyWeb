@@ -57,6 +57,14 @@
         enableInfos(code);
         successColorize(uiBtn);
       });
+      var BuggyPlugin = Dataflow.prototype.getPlugin("buggy");
+      var cons = BuggyPlugin.listConstructions();
+      var menu = $("#compose-construction-menu");
+      _.map(BuggyPlugin.listConstructions(), function(c){
+        menu.append("<div class='item'>" + c.name + " <span style='color:gray'>(" + c.language + ")</span></div>");
+      });
+      $("#compose-construction .text").html(cons[0].name + " <span style='color:gray'>(" + cons[0].language + ")</span>");
+      $("#compose-construction").dropdown();
     }
   });
 }(Dataflow));
