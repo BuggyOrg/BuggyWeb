@@ -71,7 +71,6 @@
             };
             var symbol = theModel.get("symbol");
             var graph = Graph.fromGroup(symbol,impl,generic);
-            graph = Graph.addNode(graph, symbol.name);
             drawGraph(graph,"#inspector_impl_svg_" + id, symbol.name);
             var svg = $("#inspector_impl_svg_" + id).children("svg");
             svg.attr("class","dagre");

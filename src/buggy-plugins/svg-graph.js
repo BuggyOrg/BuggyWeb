@@ -7,7 +7,21 @@ function drawGraph(graph, selector, base){
   }
 
   for(var i=0; i<graph.connections.length; i++){
-      g.addEdge(null, graph.connections[i].from.generic, graph.connections[i].to.generic);
+    var from = graph.connections[i].from.generic;
+    var to = graph.connections[i].to.generic;
+    if(base == from){
+      from = base + ":" + graph.connections[i].from.connector;
+      if(!(from in g._nodes)){
+        g.addNode(from, {label: from});
+      }
+    }
+    if(base == to){
+      to = base + ":" + graph.connections[i].to.connector;
+      if(!(to in g._nodes)){
+        g.addNode(to, {label: to});
+      }
+    }
+    g.addEdge(null, from, to);
   }
 
   var svg = d3.select(selector).append("svg").append("g");
