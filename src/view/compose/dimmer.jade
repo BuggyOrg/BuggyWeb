@@ -1,4 +1,4 @@
-.ui.page.dimmer
+.ui.page.dimmer#success-dimmer
   .content(style='width:80%')
     .center(style='width:30%')
       h2.ui.inverted.icon.header
@@ -25,3 +25,11 @@
           span.newTitle(style='display:none;', data-iconclass='icon circular inverted emphasized sitemap blue') Dependency Graph
           div(style='max-height:80vh;overflow:auto;display:block')
             | Bla
+.ui.page.dimmer#fail-dimmer
+  .content
+    .center
+      h2.ui.inverted.icon.header
+        span
+          i.icon.circular.inverted.emphasized.exclamation.red
+          | Error during compilation
+        .sub.header#fail-dimmer-error-content

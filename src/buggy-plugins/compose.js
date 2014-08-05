@@ -25,10 +25,24 @@
         }
       });
 
+      $("#fail-dimmer").css("visibility", "hidden");
+      $("#success-dimmer").dimmer("visibility", "visible");
       $("#compose-info-button").removeClass("disabled");
       $("#compose-info-button").click(function(){
-        $(".dimmer").dimmer("show");
+        $("#success-dimmer").dimmer("show");
       })
+    }
+
+    var enableFailInfos = function(error){
+      $("#fail-dimmer-error-content").text(error.message);
+
+      $("#fail-dimmer").css("visibility", "visible");
+      $("#success-dimmer").dimmer("visibility", "hidden");
+      $("#compose-info-button").removeClass("disabled");
+      $("#compose-info-button").click(function(){
+        $("#fail-dimmer").dimmer("show");
+      });
+      $("#fail-dimmer").dimmer("show");
     }
 
     var successColorize = function(btn){
@@ -52,10 +66,16 @@
 
         var mainImpl = dataflow.graph.toBuggyGroup();
         var semantics = BuggyPlugin.fullSemantics(mainImpl);
-        var code = Compose.compose(semantics, {language: "javascript"});
+        try {
+          var code = Compose.compose(semantics, {language: "javascript"});
 
-        enableInfos(code);
-        successColorize(uiBtn);
+          enableInfos(code);
+          successColorize(uiBtn);
+        }
+        catch(e){
+          enableFailInfos(e);
+          failColorize(uiBtn);
+        }
       });
       var BuggyPlugin = Dataflow.prototype.getPlugin("buggy");
       var cons = BuggyPlugin.listConstructions();
