@@ -23,8 +23,24 @@
           | Dependency Graph
         .content
           span.newTitle(style='display:none;', data-iconclass='icon circular inverted emphasized sitemap blue') Dependency Graph
-          div(style='max-height:80vh;overflow:auto;display:block')
-            | Bla
+          div(style='max-height:80vh;overflow:auto;display:block')#dep-graph
+        .title
+          i.icon.bug
+          | Debug information
+        .content
+          span.newTitle(style='display:none;', data-iconclass='icon circular inverted emphasized bug red') Debug Information
+          table.ui.table.segment
+            thead
+              tr
+                th What
+                th Information
+            tbody
+              tr
+                td Non Empty Channels
+                  #non-empty-channels.ui.button.icon
+                    i.icon.refresh
+                td#non-empty-channels-content
+div(style="z-index:-1")#dep-graph-render
 .ui.page.dimmer#fail-dimmer
   .content
     .center

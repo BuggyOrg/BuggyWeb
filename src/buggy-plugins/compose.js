@@ -2,12 +2,29 @@
 
   require(["ls!src/compose"], function(Compose){
     var ComposePlugin = Dataflow.prototype.plugin("buggy.compose");
+      var Sandbox = Dataflow.prototype.plugin("buggy.js-sandbox");
+
+    var doDebug = false;
 
     var clearColor = function(btn) {
       btn.removeClass("teal"); btn.removeClass("red"); btn.removeClass("green");
     }
 
-    var enableInfos = function(code){
+    var startWorker = function(code){
+      Sandbox.create(code);
+    }
+
+    var cutCode = function(js){
+      var start = js.indexOf("//##content#begin");
+      if(start == -1) {start = 0;}
+      else {start += "//##content#begin".length}
+      var end = js.indexOf("//##content#end");
+      if(end == -1) {end = js.length;}
+      return js.substring(start,end);
+    }
+
+    var enableInfos = function(js, graph){
+      var code = cutCode(js);
       $(".compose-code").text(code);
       $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
@@ -24,6 +41,13 @@
           $("#compose-info").html(composeInfoHTML);
         }
       });
+
+      $("#dep-graph-render").html("");
+      drawGraph(graph, "#dep-graph-render", "main", true);
+      var svg = $("#dep-graph-render").children("svg");
+      svg.attr("class","dagre");
+      $("#dep-graph").html("");
+      $("#dep-graph").append(svg);
 
       $("#fail-dimmer").css("visibility", "hidden");
       $("#success-dimmer").dimmer("visibility", "visible");
@@ -67,16 +91,23 @@
         var mainImpl = dataflow.graph.toBuggyGroup();
         var semantics = BuggyPlugin.fullSemantics(mainImpl);
         try {
-          var code = Compose.compose(semantics, {language: "javascript"});
+          var options = {language: "javascript",construction:"js-csp-worker", debug:doDebug};
+          var code = Compose.compose(semantics, options);
+          var graph = Compose.createDependencyGraph(semantics, options);
 
-          enableInfos(code);
+          enableInfos(code, graph);
           successColorize(uiBtn);
+          startWorker(code);
         }
         catch(e){
           enableFailInfos(e);
           failColorize(uiBtn);
+          throw(e);
         }
       });
+      var dropd = $("#compose-dropdown");
+      $("#compose-debug").click(function(){ doDebug = true; dropd.removeClass("positive"); dropd.addClass("negative"); });
+      $("#compose-no-debug").click(function(){ doDebug = false;  dropd.removeClass("negative"); dropd.addClass("positive"); });
       var BuggyPlugin = Dataflow.prototype.getPlugin("buggy");
       var cons = BuggyPlugin.listConstructions();
       var menu = $("#compose-construction-menu");

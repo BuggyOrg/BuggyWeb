@@ -38,7 +38,7 @@
         "external-dependencies" : "",
         "setup" : "",
         "input" : true,
-        "implementation" : "input;",
+        "implementation" : "registerInput(\{{node.id}},function(val){\n {{output 'Value'}} = val;\n {{output-data 'Value'}}\n });",
         "explicit-callback" : true
       },
       {
@@ -56,7 +56,7 @@
         ],
         "external-dependencies" : "",
         "setup" : "",
-        "implementation" : "output"
+        "implementation" : "sendOutput(\{{node.id}}, {{input 'Value'}});"
       }
     ],
     meta: [
@@ -64,6 +64,11 @@
         "name" : "Input",
         "type" : "BuggyWeb.NodeExtension",
         "html" : JadeTemplate("InputControl")
+      },
+      {
+        "name" : "Output",
+        "type" : "BuggyWeb.NodeExtension",
+        "html" : JadeTemplate("OutputControl")
       }
     ]
   };

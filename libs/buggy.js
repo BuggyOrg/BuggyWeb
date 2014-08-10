@@ -4342,7 +4342,7 @@ define('src/util/deep-find',[],function() {
         return "output[\"" + a + "\"].Value";
       });
       Handlebars.registerHelper('output-data', function(a){
-        return "yield csp.put(OutQueues[name + \":" + a + "\"], JSON.parse(JSON.stringify(output[\"" + a + "\"])));";
+        return "csp.go(outputData, [name + \":" + a + "\", OutQueues[name + \":" + a + "\"], JSON.parse(JSON.stringify(output[\"" + a + "\"]))]);";
       });
       Handlebars.registerHelper('set-meta', function(node, what, val){
         return ("output[\"" + node + "\"].meta.") + what + " = " + val;
@@ -4373,12 +4373,16 @@ define('src/util/deep-find',[],function() {
     installHelper();
     return {
       process: function(text, impl, options){
-        var context, implTempl, template;
+        var context, exImpl, oldImpl, implTempl, template, res;
         context = impl;
         if (options.debug != null && options.debug) {
           context.debug = true;
         }
+        exImpl = false;
+        oldImpl = "";
         if (context.implementation != null && context.implementation.implementation != null) {
+          oldImpl = context.implementation.implementation;
+          exImpl = true;
           implTempl = Handlebars.compile(context.implementation.implementation, {
             noEscape: true
           });
@@ -4387,7 +4391,11 @@ define('src/util/deep-find',[],function() {
         template = Handlebars.compile(text, {
           noEscape: true
         });
-        return template(context);
+        res = template(context);
+        if (exImpl) {
+          context.implementation.implementation = oldImpl;
+        }
+        return res;
       }
     };
   });
@@ -4414,7 +4422,7 @@ define('src/util/deep-find',[],function() {
   define('ls!src/compose/source',["ls!src/compose/templating", "ls!src/semantics"], function(Templating, Semantics){
     return {
       generateSource: function(semantics, graph, options){
-        var res, constr, sources;
+        var res, constr, prepareSource, sources, sourceMap;
         res = map(function(n){
           return {
             node: n,
@@ -4423,39 +4431,27 @@ define('src/util/deep-find',[],function() {
           };
         })(
         graph.nodes);
-        constr = Semantics.query(semantics, "js-csp", options, "construction")[0];
-        sources = map(function(t){
+        constr = first(Semantics.query(semantics, options.construction, options, "construction"));
+        prepareSource = function(t){
           if (t.process === "once") {
-            return t["template-file"];
+            return Templating.process(t["template-file"], graph, options);
           } else if (t.process === "graph") {
             return Templating.process(t["template-file"], graph, options);
           } else if (t.process === "implementations" || t.process === "nodes") {
-            return map(function(r){
-              return Templating.process(t["template-file"], r, options);
-            })(
-            res);
+            return fold(function(l, r){
+              return l + Templating.process(t["template-file"], r, options);
+            }, "", res);
           }
+        };
+        sources = map(function(t){
+          return [t.template, prepareSource(t)];
         })(
         constr.templates);
-        return fold1(curry$(function(x$, y$){
-          return x$ + y$;
-        }), flatten(sources));
+        sourceMap = pairsToObj(sources);
+        return Templating.process(sourceMap.program, sourceMap, {});
       }
     };
   });
-  function curry$(f, bound){
-    var context,
-    _curry = function(args) {
-      return f.length > 1 ? function(){
-        var params = args ? args.concat() : [];
-        context = bound ? context || this : this;
-        return params.push.apply(params, arguments) <
-            f.length && arguments.length ?
-          _curry.call(context, params) : f.apply(context, params);
-      } : f;
-    };
-    return _curry();
-  }
 }).call(this);
 
 
@@ -4534,7 +4530,7 @@ define('src/util/deep-find',[],function() {
     var createRuleset, applyRuleset;
     createRuleset = function(semantics, options){
       var constr;
-      constr = Semantics.query(semantics, "js-csp", options, "construction")[0];
+      constr = Semantics.query(semantics, options.construction, options, "construction")[0];
       return map(function(it){
         return eval(ls.compile(it["procedure"]));
       })(
@@ -4584,7 +4580,8 @@ define('src/util/deep-find',[],function() {
       output: {
         parent: "main",
         what: "Output"
-      }
+      },
+      construction: "js-csp-node"
     };
     return {
       compose: function(semantics, options){

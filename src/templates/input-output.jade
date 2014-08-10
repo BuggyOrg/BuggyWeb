@@ -1,0 +1,10 @@
+#Jade-Templates-InputControl
+  .ui.action.input
+    input(id="input_<%= id %>" type='text', placeholder='Input Value')
+    div(id="input_button_<%= id %>" style="font-size:12px").ui.button.blue Send
+  div &nbsp;
+
+#Jade-Templates-OutputControl
+  .ui.label.purple
+    i.icon.terminal
+  div(id="output_<%= id %>").ui.label.black

@@ -1,9 +1,15 @@
 
-function drawGraph(graph, selector, base){
+function drawGraph(graph, selector, base, addNames){
   var g = new dagreD3.Digraph();
 
+  addNames = addNames || false;
+
   for(var i=0; i<graph.nodes.length; i++){
-    g.addNode(graph.nodes[i].id, {label: graph.nodes[i].id});
+    if(!addNames){
+      g.addNode(graph.nodes[i].id, {label: graph.nodes[i].id});
+    } else {
+      g.addNode(graph.nodes[i].id, {label: graph.nodes[i].name + "_" + graph.nodes[i].id});
+    }
   }
 
   for(var i=0; i<graph.connections.length; i++){
