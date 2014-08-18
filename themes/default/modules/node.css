@@ -6,7 +6,6 @@
   border: 1px #aaa solid;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 3px;
-  z-index: 0;
   border: 1px solid hsla(0, 0%, 0%, .8);
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -106,4 +105,3 @@
 .dataflow-node.fade .dataflow-node-inner {
   color: hsl(0, 0%, 55%);
 }
-

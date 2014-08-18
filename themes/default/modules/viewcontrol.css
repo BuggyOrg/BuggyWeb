@@ -1,0 +1,38 @@
+.viewcontrol{
+  position:fixed;
+  top:55px;
+  left:50%;
+  width:800px;
+  margin-left:-400px;
+  font-size:50pt;
+  text-shadow: 0px 1px 1px #4d4d4d;
+/*  color: #222; */
+  color: #aaa;
+  z-index:2;
+  font-size: 18pt;
+  text-align: center;
+  -webkit-box-shadow: inset 1px 1px 5px 1px rgba(0,0,0,0.26);
+  -moz-box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.26);
+  box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.26);
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  border-radius: 60px;
+}
+
+.viewcontrol .heading {
+  font-size:50pt;
+}
+
+.viewcontrol small {
+  font-size:18pt;
+}
+
+.viewcontrol i:hover{
+  color:#A4CEE0;
+  cursor:pointer;
+}
+
+.controls {
+  position:absolute;
+  right:20px;
+}

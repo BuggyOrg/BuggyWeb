@@ -87,7 +87,7 @@ body{
     position: relative;
     top: 0;
     left: 0;
-    z-index: 2;
+    z-index: 3;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;

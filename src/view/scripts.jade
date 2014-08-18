@@ -60,7 +60,6 @@ script.
   installPrelude(window,prelude);
   hljs.configure({classPrefix: ''});
   hljs.initHighlightingOnLoad();
-  require(["ls!src/buggy"],function(Buggy){
     $(function($){
     // Everything should be loaded now
     // Test 2 graphs
@@ -75,4 +74,5 @@ script.
     g.trigger("change");
     window.d = $(".dataflow").data("dataflow");
     });
-  });
+  // do the semanticui initial stuff  
+  $(function(){ $(".ui.dropdown").dropdown();});

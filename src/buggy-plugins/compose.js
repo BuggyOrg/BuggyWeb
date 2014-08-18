@@ -1,6 +1,6 @@
 ( function(Dataflow) {
 
-  require(["ls!src/compose"], function(Compose){
+  var Compose = Buggy.Compose;
     var ComposePlugin = Dataflow.prototype.plugin("buggy.compose");
       var Sandbox = Dataflow.prototype.plugin("buggy.js-sandbox");
 
@@ -117,5 +117,4 @@
       $("#compose-construction .text").html(cons[0].name + " <span style='color:gray'>(" + cons[0].language + ")</span>");
       $("#compose-construction").dropdown();
     }
-  });
 }(Dataflow));

@@ -23,8 +23,8 @@
   BuggyPlugin.initialize = function(){
   }
 
-  require(["ls!src/buggy", "ls!src/semantics"],
-    function(Buggy,Semantics){
+
+  var Semantics = Buggy.Semantics;
 
       var BuggyState = Backbone.Model.extend({
         defaults:{
@@ -113,7 +113,5 @@
       }
 
       BuggyPlugin.addSemantics("base", baseSemantics);
-
-  });
 
 }(Dataflow));

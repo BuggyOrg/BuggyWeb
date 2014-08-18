@@ -65,7 +65,7 @@
         var append = itemTmpl(impl);
         menu.append(itemTmpl(impl));
         if(impl.generics){
-          require(["ls!src/graph"], function(Graph){
+          var Graph = Buggy.Graph;
             var generic = {
               name: impl.symbol, id: impl.symbol
             };
@@ -74,7 +74,7 @@
             drawGraph(graph,"#inspector_impl_svg_" + id, symbol.name);
             var svg = $("#inspector_impl_svg_" + id).children("svg");
             svg.attr("class","dagre");
-          });
+          
         }
         impl.implementation = implTmp;
       })

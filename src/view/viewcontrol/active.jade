@@ -1,0 +1,21 @@
+.viewcontrol
+  .heading Main
+    span.controls
+      i.icon.edit#edit-group
+      | |
+      i.icon.add 
+  small
+    .ui.dropdown
+      .text Dataflow
+      i.dropdown.icon
+      .menu
+        .item Dataflow
+.ui.page.dimmer#edit-group-dimmer
+  div(style='margin-left:15%;width:70%').content
+    .center
+      .ui.segment.inverted
+        div(style="font-size:30pt").heading Edit Main
+script.
+  $("#edit-group").click(function(){
+    $("#edit-group-dimmer").dimmer("show");
+  });
