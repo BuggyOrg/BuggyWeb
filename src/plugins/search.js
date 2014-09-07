@@ -43,7 +43,6 @@
     var $input = $('#searchfield');
     var $button = $search.find('button');
     dataflow.$el.prepend($search);
-    console.log($input);
 
     $input.on('keydown', function (event) {
       // Ctrl-s again to get out of the search field

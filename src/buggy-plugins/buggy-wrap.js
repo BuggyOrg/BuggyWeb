@@ -50,6 +50,13 @@
           return Semantics.query(val,what, {language:"javascript"}, "implementations");
         })));
       }
+      
+      BuggyPlugin.searchImplementations = function(what){
+        var semantics = buggyState.get("semantics");
+        return _.compact(_.flatten(_.map(semantics, function(val){
+          return Semantics.query(val,what, {searchQuery:true,language:"javascript"}, "implementations");
+        })));
+      }
 
       BuggyPlugin.searchSemantics = function(search){
         var semantics = buggyState.get("semantics");
@@ -99,7 +106,6 @@
           var mgd = mergeSemantics(acc, sem);
           return mgd;
         }, {});
-        console.log(fullSemantics);
         main_implementation.symbol = "main";
         main_implementation.name = "main";
         // all + main semantics !
@@ -108,7 +114,6 @@
             main_implementation
           ]
         });
-        console.log(semantics);
         return s;
       }
 

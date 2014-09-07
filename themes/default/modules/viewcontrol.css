@@ -4,7 +4,6 @@
   left:50%;
   width:800px;
   margin-left:-400px;
-  font-size:50pt;
   text-shadow: 0px 1px 1px #4d4d4d;
 /*  color: #222; */
   color: #aaa;
@@ -32,7 +31,40 @@
   cursor:pointer;
 }
 
-.controls {
+.controls-right {
   position:absolute;
+  top: 20px;
   right:20px;
+  font-size:50%;
+  padding-left:10px;
+  border-left: 2px solid rgba(0,0,0,0.26);
+}
+
+.controls-left {
+  position:absolute;
+  top: 20px;
+  left:20px;
+  font-size:50%;
+  padding-right:10px;
+  border-right: 2px solid rgba(0,0,0,0.26);
+}
+
+.biginput {
+  background-color:#232429;
+  border: none;
+  border-bottom:2px #826801 dotted;
+  font-size:45pt;
+  position:fixed;
+  color:white;
+  top:58px;
+  left:50%;
+  width:600px;
+  margin-left:-300px;
+  text-shadow: 0px 1px 1px #4d4d4d;
+  text-align: center;
+  z-index:200;
+}
+
+.biginput:focus{
+  outline: none;
 }

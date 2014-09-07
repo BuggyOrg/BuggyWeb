@@ -1,8 +1,13 @@
 .viewcontrol
-  .heading Main
-    span.controls
+  .heading
+    span#activeSymbolName Main
+    div.controls-left
       i.icon.edit#edit-group
-      | |
+      br
+      i.icon.info
+    div.controls-right
+      i.icon.list#changeActiveSymbol
+      br
       i.icon.add 
   small
     .ui.dropdown
@@ -11,11 +16,39 @@
       .menu
         .item Dataflow
 .ui.page.dimmer#edit-group-dimmer
-  div(style='margin-left:15%;width:70%').content
+  div(style='margin-left:25%;width:50%').content
     .center
       .ui.segment.inverted
         div(style="font-size:30pt").heading Edit Main
-script.
-  $("#edit-group").click(function(){
-    $("#edit-group-dimmer").dimmer("show");
-  });
+        div(style="width:100%;text-align:left!important")
+          .ui.form
+            .field
+              label Name of Symbol
+              .ui.left.labeled.icon.input
+                input(type="text",placeholder="Name of Symbol")
+                i(style="font-family:'FontAwesome'").icon-cube.icon
+            .field
+              label Implementation Name
+              .ui.left.labeled.icon.input
+                input(type="text",placeholder="Implementation Name")
+            .two.fields
+              .field
+                label Implemented Type
+                .grouped.inline.fields
+                  .field
+                    .ui.radio.checkbox
+                      input(type="radio",name="whatType",checked)#typeGroup
+                      label(for="typeGroup",style="color:white") Group
+                  .field
+                    .ui.radio.checkbox
+                      input(type="radio",name="whatType")#typeAtomic
+                      label(for="typeAtomic",style="color:white") Atomic
+                  .field
+                    .ui.radio.checkbox
+                      input(type="radio",name="whatType")#typeModule
+                      label(for="typeModule",style="color:white") Module
+              .field
+                label Source
+                i(style="font-size:35pt").icon.hdd
+                span(style="font-size:25pt") local Database
+input(type="text",id="activeSymbolInput").biginput

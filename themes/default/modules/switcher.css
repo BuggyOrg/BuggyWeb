@@ -1,0 +1,8 @@
+.switcher {
+  position:fixed;
+  width:700px;
+  top: 200px;
+  left:50%;
+  margin-left:-350px;
+  z-index: 3;
+}
