@@ -20,18 +20,22 @@ $("#edit-group").click(function(){
   $("#edit-group-dimmer").dimmer("show");
 });
 
+var activateInput = function(){
+  var name = $("#activeSymbolName").text();
+  $("#activeSymbolInput").val(name);
+  $("#activeSymbolInput").css("display","initial");
+  
+  Controller.Switcher.activate();
+  BuggyView.setActiveImplementation({implementation:{type:"none"}});
+  
+  $("#activeSymbolInput").focus();
+}
 
-
-$("#activeSymbolInput").css("display","none");
-$("#activeSymbolInput").keyup(function(event){
-  var name = $("#activeSymbolInput").val();
-  if(event.keyCode == 13){
-    $("#activeSymbolName").text(name);
-    $("#activeSymbolInput").css("display","none");
-    Controller.Switcher.deactivate();
-  } else {
-  }
-});
+var deactivateInput = function(name){
+  $("#activeSymbolName").text(name);
+  $("#activeSymbolInput").css("display","none");
+  Controller.Switcher.deactivate();
+}
 
 
 var itemTmpl = _.template(JadeTemplate("SwitcherItem"));
@@ -43,7 +47,7 @@ var createSelectionItem = function(impl){
   return { html: html, id: itemID, implementation: impl };
 }
 
-$("#activeSymbolInput").on('input', function(){
+var listResults = function(){
   var searchVal = $("#activeSymbolInput").val();
   var res = _.first(BuggyView.matchingSymbols(searchVal),5);
   var items = _.map(res, function(impl){
@@ -55,17 +59,22 @@ $("#activeSymbolInput").on('input', function(){
   $("#switcherList").html(itemHTML);
   _.each(items, function(item){
     $("#activeSelectionItem"+item.id).click(function(){
-      console.log(item.implementation.symbol + " clicked");
+      
+      deactivateInput(item.implementation.symbol);
+      BuggyView.setActiveImplementation(item.implementation);
     });
   });
+}
+
+$("#activeSymbolInput").css("display","none");
+$("#activeSymbolInput").keyup(function(event){
+  var name = $("#activeSymbolInput").val();
+  if(event.keyCode == 13){
+    deactivateInput(name);
+  } else {
+  }
 });
 
-$("#changeActiveSymbol").click(function(){
-  var name = $("#activeSymbolName").text();
-  $("#activeSymbolInput").val(name);
-  $("#activeSymbolInput").css("display","initial");
-  
-  Controller.Switcher.activate();
-  
-  $("#activeSymbolInput").focus();
-});
+$("#activeSymbolInput").on('input', listResults);
+
+$("#changeActiveSymbol").click(_.compose(listResults,activateInput));

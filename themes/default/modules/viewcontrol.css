@@ -68,3 +68,16 @@
 .biginput:focus{
   outline: none;
 }
+
+#codeview {
+  overflow: auto;
+  position:absolute;
+  top:250px;
+  bottom:50px;
+  left:50%;
+  width: 750px;
+  max-height: 600px;
+  margin-left:-325px!important;
+  z-index:110;
+  visibility:hidden;
+}

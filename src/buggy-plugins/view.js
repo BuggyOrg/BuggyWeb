@@ -24,12 +24,26 @@
     implementation: {},
   }
   
-  var updateView = function(){}
+  var views = [];
   
-  BuggyView.setActiveSymbol = function(symbol, implementation){
-    var impl = BuggyPlugin.findImplementations(symbol)[0];
-    currentView.symbol = symbol;
+  BuggyView.addView = function(view){
+    views.push(view);
+  }
+  
+  var updateView = function(){
+    var impl =  currentView.implementation;
+    _.each(views, function(view){ view(impl); });
+  }
+  
+  BuggyView.getActiveImplementation = function(){
+    return currentView.implementation;
+  }
+  
+  BuggyView.setActiveImplementation = function(impl){
+    currentView.symbol = impl.symbol;
     currentView.implementation = impl;
+    console.log("ActiveImpl");
+    console.log(impl);
     updateView();
   }
   
