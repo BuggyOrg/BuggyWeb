@@ -42,8 +42,6 @@
   BuggyView.setActiveImplementation = function(impl){
     currentView.symbol = impl.symbol;
     currentView.implementation = impl;
-    console.log("ActiveImpl");
-    console.log(impl);
     updateView();
   }
   

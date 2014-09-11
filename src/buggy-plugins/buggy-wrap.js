@@ -51,6 +51,13 @@
         })));
       }
       
+      BuggyPlugin.getSymbol = function(symbol) {
+        var semantics = buggyState.get("semantics");
+        return _.compact(_.flatten(_.map(semantics, function(val){
+          return Semantics.query(val, symbol, {}, "symbols");
+        })))[0];
+      }
+      
       BuggyPlugin.searchImplementations = function(what){
         var semantics = buggyState.get("semantics");
         return _.compact(_.flatten(_.map(semantics, function(val){
