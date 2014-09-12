@@ -78,7 +78,7 @@
   InterfacesPlugin.initialize = function(dataflow){
     var BuggyPlugin = Dataflow.prototype.getPlugin("buggy");
 
-    BuggyPlugin.addSemantics("interfaces", inout_semantics);
+    BuggyPlugin.addSemanticSource("interfaces", inout_semantics);
   }
 
 })(Dataflow);

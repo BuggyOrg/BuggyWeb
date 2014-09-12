@@ -20,110 +20,120 @@
 
   var BuggyPlugin = Dataflow.prototype.plugin("buggy");
 
-  BuggyPlugin.initialize = function(){
-  }
-
-
   var Semantics = Buggy.Semantics;
 
-      var BuggyState = Backbone.Model.extend({
-        defaults:{
-          semantics: { }
-        }
+  var buggyState = {semantics: {}};
+
+
+    var emptySemantics = Semantics.createSemantics();
+    var curSemantics = Semantics.createSemantics();
+
+    BuggyPlugin.addSemanticSource = function(name, semantics){
+      semantics = $.extend(true,semantics,emptySemantics);
+      var sem = BuggyPlugin.getSemantics();
+      sem[name] = semantics;
+    }
+    
+    BuggyPlugin.clearSession = function(){
+      curSemantics = Semantics.createSemantics();
+    }
+    
+    BuggyPlugin.addSymbol = function(symbol){
+      curSemantics.symbols.push(symbol);
+    }
+    
+    BuggyPlugin.addImplementation = function(implementation){
+      curSemantics.implementations.push(implementation);
+    }
+    
+    BuggyPlugin.getSemantics = function(){
+      var semantics = buggyState.semantics;
+      semantics.session = curSemantics;
+      return semantics;
+    }
+
+    BuggyPlugin.findImplementations = function(what){
+      var semantics = BuggyPlugin.getSemantics();
+      return _.compact(_.flatten(_.map(semantics, function(val){
+        return Semantics.query(val,what, {language:"javascript"}, "implementations");
+      })));
+    }
+    
+    BuggyPlugin.getSymbol = function(symbol) {
+      var semantics = BuggyPlugin.getSemantics();
+      return _.compact(_.flatten(_.map(semantics, function(val){
+        return Semantics.query(val, symbol, {}, "symbols");
+      })))[0];
+    }
+    
+    BuggyPlugin.searchImplementations = function(what){
+      var semantics = BuggyPlugin.getSemantics();
+      return _.compact(_.flatten(_.map(semantics, function(val){
+        return Semantics.query(val,what, {searchQuery:true,language:"javascript"}, "implementations");
+      })));
+    }
+
+    BuggyPlugin.searchSemantics = function(search){
+      var semantics = BuggyPlugin.getSemantics();
+      var resultSymbols = _.map(semantics, function(val){
+        return Semantics.query(val,search,{searchQuery:true},"symbols");
       });
-
-      var buggyState = new BuggyState();
-
-
-      var emptySemantics = Semantics.createSemantics();
-
-      BuggyPlugin.addSemantics = function(name, semantics){
-        semantics = $.extend(true,semantics,emptySemantics);
-        var sem = buggyState.get("semantics");
-        sem[name] = semantics;
-        buggyState.set("semantics", sem);
+      var resultModules = _.map(semantics, function(val){
+        return Semantics.query(val,search,{searchQuery:true},"modules");
+      });
+      return {
+        symbols: _.compact(_.flatten(resultSymbols)),
+        modules: _.compact(_.flatten(resultModules))
       }
+    }
 
-      BuggyPlugin.findImplementations = function(what){
-        var semantics = buggyState.get("semantics");
-        return _.compact(_.flatten(_.map(semantics, function(val){
-          return Semantics.query(val,what, {language:"javascript"}, "implementations");
-        })));
-      }
-      
-      BuggyPlugin.getSymbol = function(symbol) {
-        var semantics = buggyState.get("semantics");
-        return _.compact(_.flatten(_.map(semantics, function(val){
-          return Semantics.query(val, symbol, {}, "symbols");
-        })))[0];
-      }
-      
-      BuggyPlugin.searchImplementations = function(what){
-        var semantics = buggyState.get("semantics");
-        return _.compact(_.flatten(_.map(semantics, function(val){
-          return Semantics.query(val,what, {searchQuery:true,language:"javascript"}, "implementations");
-        })));
-      }
+    BuggyPlugin.listConstructions = function(){
+      var semantics = BuggyPlugin.getSemantics();
+      return _.compact(_.flatten(_.map(semantics, function(s){
+        return s.construction;
+      })));
+    }
 
-      BuggyPlugin.searchSemantics = function(search){
-        var semantics = buggyState.get("semantics");
-        var resultSymbols = _.map(semantics, function(val){
-          return Semantics.query(val,search,{searchQuery:true},"symbols");
-        });
-        var resultModules = _.map(semantics, function(val){
-          return Semantics.query(val,search,{searchQuery:true},"modules");
-        });
-        return {
-          symbols: _.compact(_.flatten(resultSymbols)),
-          modules: _.compact(_.flatten(resultModules))
+    BuggyPlugin.searchMeta = function(name, type){
+      var semantics = BuggyPlugin.getSemantics();
+      var resultMeta = _.map(semantics, function(val){
+        return Semantics.query(val,{type:type,name:name},{},"meta");
+      });
+      return flatten(resultMeta);
+    }
+
+    var mergeSemantics = function(s1,s2){
+      var fullSemantics = s1;
+      var s_keys = unique(union(keys(s1), keys(s2)));
+      _.each(keys(s2), function(k){
+        if(fullSemantics[k] instanceof Array){
+          $.merge(fullSemantics[k],s2[k]);
+        }else if(! (k in fullSemantics) ){
+          fullSemantics[k] = $.merge([],s2[k]);
         }
-      }
+      })
+      return fullSemantics;
+    }
 
-      BuggyPlugin.listConstructions = function(){
-        var semantics = buggyState.get("semantics");
-        return _.compact(_.flatten(_.map(semantics, function(s){
-          return s.construction;
-        })));
-      }
+    BuggyPlugin.fullSemantics = function(main_implementation){
+      var semantics = values(BuggyPlugin.getSemantics());
+      var fullSemantics = _.reduce(semantics, function(acc, sem){
+        var mgd = mergeSemantics(acc, sem);
+        return mgd;
+      }, {});
+      main_implementation.symbol = "main";
+      main_implementation.name = "main";
+      // all + main semantics !
+      var s = mergeSemantics(fullSemantics,{
+        implementations:[
+          main_implementation
+        ]
+      });
+      return s;
+    }
 
-      BuggyPlugin.searchMeta = function(name, type){
-        var semantics = buggyState.get("semantics");
-        var resultMeta = _.map(semantics, function(val){
-          return Semantics.query(val,{type:type,name:name},{},"meta");
-        });
-        return flatten(resultMeta);
-      }
-
-      var mergeSemantics = function(s1,s2){
-        var fullSemantics = s1;
-        var s_keys = unique(union(keys(s1), keys(s2)));
-        _.each(keys(s2), function(k){
-          if(fullSemantics[k] instanceof Array){
-            $.merge(fullSemantics[k],s2[k]);
-          }else if(! (k in fullSemantics) ){
-            fullSemantics[k] = $.merge([],s2[k]);
-          }
-        })
-        return fullSemantics;
-      }
-
-      BuggyPlugin.fullSemantics = function(main_implementation){
-        var semantics = values(buggyState.get("semantics"));
-        var fullSemantics = _.reduce(semantics, function(acc, sem){
-          var mgd = mergeSemantics(acc, sem);
-          return mgd;
-        }, {});
-        main_implementation.symbol = "main";
-        main_implementation.name = "main";
-        // all + main semantics !
-        var s = mergeSemantics(fullSemantics,{
-          implementations:[
-            main_implementation
-          ]
-        });
-        return s;
-      }
-
-      BuggyPlugin.addSemantics("base", baseSemantics);
+    BuggyPlugin.addSemanticSource("base", baseSemantics);
+    BuggyPlugin.addSymbol({name:"main",connectors:[]});
+    BuggyPlugin.addImplementation({name:"main", symbol:"main", type:"dataflow"});
 
 }(Dataflow));

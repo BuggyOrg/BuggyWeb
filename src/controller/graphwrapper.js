@@ -59,7 +59,6 @@
         g.trigger("change");
     };
     DisplayGraph.loadGraph = function(graph){
-      console.log(graph);
       var nodeMapping = {};
       var groupNode = symbolNode(graph.symbol, {id:graph.symbol}, nodeMapping);
       var displayGraph = {

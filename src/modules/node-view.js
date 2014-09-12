@@ -26,7 +26,6 @@
     },
     initialize: function(options) {
       var templateData = this.model.toJSON();
-      console.log(templateData);
       templateData.icon = this.model.getIcon();
       var res = this.template(templateData);
       this.$el.html(res);

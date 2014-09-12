@@ -51,11 +51,11 @@ script(src='src/buggy-plugins/search.js')
 script(src='src/buggy-plugins/interfaces.js')
 script(src='src/buggy-plugins/compose.js')
 script(src='src/buggy-plugins/js-sandbox.js')
-script(src='src/buggy-plugins/view.js')
+script(src='src/controller/graphwrapper.js')
+script(src='src/buggy-plugins/view.js') 
 script(src='src/controller/viewcontrol.js')
 script(src='src/controller/switcher.js')
 script(src='src/controller/codeview.js')
-script(src='src/controller/graphwrapper.js')
 script(src='src/controller/graphview.js')
 // Usability Features
 script(src='src/usability/introduction.js')
@@ -67,18 +67,11 @@ script.
   hljs.configure({classPrefix: ''});
   hljs.initHighlightingOnLoad();
     $(function($){
-    // Everything should be loaded now
-    // Test 2 graphs
-    var dataflow = new window.Dataflow({
-    appendTo: "#graph1",
-    buggy: Buggy.create()
-    });
-    // Load test graph
-    var g = dataflow.loadGraph(
-    {nodes:[],edges:[]}
-    );
-    g.trigger("change");
-    window.d = $(".dataflow").data("dataflow");
+      // Everything should be loaded now
+      var dataflow = new window.Dataflow({
+        appendTo: "#graph1",
+        buggy: Buggy.create()
+      });
     });
   // do the semanticui initial stuff  
   $(function(){ $(".ui.dropdown").dropdown();});

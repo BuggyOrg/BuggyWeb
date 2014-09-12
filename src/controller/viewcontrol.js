@@ -22,7 +22,6 @@ $("#edit-group").click(function(){
 
 var activateInput = function(){
   var name = $("#activeSymbolName").text();
-  $("#activeSymbolInput").val(name);
   $("#activeSymbolInput").css("display","initial");
   
   Controller.Switcher.activate();
@@ -32,10 +31,14 @@ var activateInput = function(){
 }
 
 var deactivateInput = function(name){
-  $("#activeSymbolName").text(name);
   $("#activeSymbolInput").css("display","none");
   Controller.Switcher.deactivate();
 }
+
+BuggyView.addView(function(impl){
+  $("#activeSymbolName").text(impl.name);
+  $("#activeSymbolInput").val(impl.name);
+});
 
 
 var itemTmpl = _.template(JadeTemplate("SwitcherItem"));

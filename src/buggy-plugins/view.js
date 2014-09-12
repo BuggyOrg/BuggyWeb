@@ -19,10 +19,7 @@
   var BuggyView = Dataflow.prototype.plugin("buggy.view");
   var BuggyPlugin = Dataflow.prototype.getPlugin("buggy");
   
-  var currentView = {
-    symbol : "main",
-    implementation: {},
-  }
+  var currentView = {}
   
   var views = [];
   
@@ -48,5 +45,9 @@
   BuggyView.matchingSymbols = function(query){
     return BuggyPlugin.searchImplementations(query);
   }
+  
+  BuggyView.initialize = function(){
+    BuggyView.setActiveImplementation(BuggyView.matchingSymbols("main")[0]);
+  };
   
 }(Dataflow));
