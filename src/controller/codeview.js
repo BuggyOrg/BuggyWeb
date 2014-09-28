@@ -18,12 +18,17 @@
   
   var BuggyView = Dataflow.prototype.plugin("buggy.view");
   
-  BuggyView.addView(function(impl){
-    if(impl.type == "atomic"){
-      $("#codeview").css("visibility", "visible");
-      $("#codeview-content").text(impl.implementation);
-    } else{
-      $("#codeview").css("visibility", "hidden");
+  BuggyView.addView({
+    name: "Atomic Code",
+    selectable: false,
+    display: function(view){
+      var impl = view.implementation;
+      if(view.active.name == "Atomic Code" && impl.type == "atomic"){
+        $("#codeview").css("visibility", "visible");
+        $("#codeview-content").text(impl.implementation);
+      } else{
+        $("#codeview").css("visibility", "hidden");
+      }
     }
   });
   

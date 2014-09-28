@@ -82,3 +82,12 @@
   z-index:110;
   visibility:hidden;
 }
+
+.content-element {
+  position:absolute;
+  top: 250px;
+  left: 50%;
+  width: 1000px;
+  margin-left:-500px;
+  z-index: 110;
+}

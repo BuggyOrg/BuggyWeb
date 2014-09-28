@@ -24,12 +24,24 @@
   var views = [];
   
   BuggyView.addView = function(view){
+    if(!("active" in currentView)){
+      currentView.active = view;
+    }
     views.push(view);
   }
   
   var updateView = function(){
     var impl =  currentView.implementation;
-    _.each(views, function(view){ view(impl); });
+    _.each(views, function(view){ view.display(currentView); });
+  }
+  
+  BuggyView.setView = function(view){
+    currentView.active = view;
+    updateView();
+  }
+  
+  BuggyView.getViews = function(){
+    return views;
   }
   
   BuggyView.getActiveImplementation = function(){

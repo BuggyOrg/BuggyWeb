@@ -19,11 +19,16 @@
   var BuggyView = Dataflow.prototype.plugin("buggy.view");
   var DisplayGraph = Dataflow.prototype.plugin("buggy.display-graph");
   
-  BuggyView.addView(function(impl){
-    if(impl.type == "dataflow"){
-      DisplayGraph.loadGraph(impl);
-    } else {
-      DisplayGraph.clearGraph();
+  BuggyView.addView({
+    name: "Dataflow",
+    selectable: true,
+    display: function(view){
+      var impl = view.implementation;
+      if(view.active.name == "Dataflow" && impl.type == "dataflow"){
+        DisplayGraph.loadGraph(impl);
+      } else {
+        DisplayGraph.clearGraph();
+      }
     }
   });
   

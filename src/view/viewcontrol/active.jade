@@ -8,7 +8,12 @@
     div.controls-right
       i.icon.list#changeActiveSymbol
       br
-      i.icon.add 
+      .ui.dropdown
+        i.icon.add#add-semantics
+        .menu
+          .item#add-symbol Symbol
+          .item#add-implementation Implementation
+          .item#add-generic Generic
   small
     //-
       This dropdown should include all possible description formats
@@ -16,8 +21,16 @@
     .ui.dropdown
       .text Dataflow
       i.dropdown.icon
-      .menu
-        .item Dataflow
+      .menu#views
+        .item#dataflowView
+          i.icon.red.lock
+          | Dataflow
+        .item#functionalView
+          i.icon.edit
+          | Functional
+.content-element#functional-container
+  .ui.segment#code-status
+    div(style="min-height: 400px")#functional-content
 .ui.page.dimmer#edit-group-dimmer
   div(style='margin-left:25%;width:50%').content
     .center

@@ -35,9 +35,13 @@ var deactivateInput = function(name){
   Controller.Switcher.deactivate();
 }
 
-BuggyView.addView(function(impl){
-  $("#activeSymbolName").text(impl.name);
-  $("#activeSymbolInput").val(impl.name);
+BuggyView.addView({
+  name: "active Implementation",
+  selectable: false,
+  display: function(impl){
+    $("#activeSymbolName").text(impl.name);
+    $("#activeSymbolInput").val(impl.name);
+  }
 });
 
 
@@ -81,3 +85,20 @@ $("#activeSymbolInput").keyup(function(event){
 $("#activeSymbolInput").on('input', listResults);
 
 $("#changeActiveSymbol").click(_.compose(listResults,activateInput));
+
+BuggyView.addView({
+  name: "Display Elements",
+  selectable: false,
+  display: function(view){
+    $("#views").html("");
+    var itemTemplate = _.template(JadeTemplate("ViewItem"));
+    _.chain(BuggyView.getViews())
+      .filter(function(view){ return view.selectable; })
+      .each(function(view){
+        $("#views").append(itemTemplate(view));
+        $("#display_view_" + view.name).click(function(){
+          BuggyView.setView(view);
+        })
+      });
+  }
+});
